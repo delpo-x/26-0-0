@@ -1,0 +1,1924 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>26-0-0 · Girone M</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --pitch:#0d3b2e;      /* verde campo notturno */
+  --pitch-hi:#14543f;
+  --chalk:#f2f0e6;      /* gesso */
+  --lime:#c8f04a;       /* segnalinee fluo */
+  --clay:#b8452f;       /* terra battuta */
+  --clay-fg:#de8d7d;    /* variante chiara di clay per testo/bordi: 5:1+ su fondo scuro */
+  --slate:#0a1f19;
+  --line:rgba(242,240,230,.18);
+  --shadow:0 2px 0 rgba(0,0,0,.35);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+.visually-hidden{
+  position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;
+  overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;
+}
+html,body{margin:0;padding:0}
+body{
+  background:var(--slate);
+  color:var(--chalk);
+  font-family:'IBM Plex Sans',system-ui,sans-serif;
+  font-size:16px;line-height:1.45;
+  overscroll-behavior-y:none;
+}
+.wrap{max-width:560px;margin:0 auto;padding:0 16px 96px;position:relative}
+
+/* ---------- header ---------- */
+header{padding:22px 0 14px;position:relative}
+.eyebrow{
+  font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--lime);opacity:.85;margin-bottom:6px;
+}
+h1{
+  font-family:'Bebas Neue',sans-serif;font-size:clamp(46px,15vw,74px);
+  line-height:.82;margin:0;letter-spacing:.01em;
+}
+h1 .zero{color:var(--lime);display:inline-block;cursor:default}
+h1 .zero.egg-spin{animation:eggSpin .9s ease}
+@keyframes eggSpin{
+  0%{transform:rotate(0) scale(1);color:var(--lime)}
+  35%{transform:rotate(180deg) scale(1.15);color:var(--clay-fg)}
+  70%{transform:rotate(360deg) scale(1.15);color:var(--lime)}
+  100%{transform:rotate(360deg) scale(1);color:var(--lime)}
+}
+.egg-toast{
+  font-family:'IBM Plex Mono',monospace;font-size:11px;opacity:.7;
+  margin-top:10px;padding:7px 11px;border:1px solid var(--lime);
+  border-radius:2px;background:rgba(200,240,74,.08);display:inline-block;
+}
+.sub{font-size:13px;opacity:.62;margin-top:8px;font-family:'IBM Plex Mono',monospace}
+
+/* ---------- card ---------- */
+.card{
+  background:var(--pitch);
+  border:1px solid var(--line);
+  border-radius:4px;
+  padding:16px;margin:14px 0;
+  position:relative;
+}
+.card.pitch-lines::before{
+  content:'';position:absolute;inset:0;border-radius:4px;pointer-events:none;
+  background:
+    linear-gradient(90deg,transparent 49.7%,rgba(242,240,230,.07) 49.7%,rgba(242,240,230,.07) 50.3%,transparent 50.3%);
+}
+.label{
+  font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.18em;
+  text-transform:uppercase;opacity:.62;margin-bottom:10px;
+}
+
+/* ---------- ruota / estrazione ---------- */
+.reel{
+  height:74px;overflow:hidden;position:relative;
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  display:flex;align-items:center;justify-content:center;
+}
+.reel-inner{transition:transform .08s linear;width:100%;text-align:center}
+.reel-team{
+  font-family:'Bebas Neue',sans-serif;font-size:34px;line-height:1;
+  letter-spacing:.02em;
+}
+.reel-meta{font-family:'IBM Plex Mono',monospace;font-size:11px;opacity:.62;margin-top:4px}
+
+/* ---------- bottoni ---------- */
+button{font-family:inherit;font-size:inherit;cursor:pointer;border:none}
+.btn{
+  display:block;width:100%;padding:15px;margin-top:12px;
+  background:var(--lime);color:var(--slate);
+  font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:.06em;
+  border-radius:3px;box-shadow:var(--shadow);
+  transition:transform .06s,filter .15s;
+}
+.btn:active{transform:translateY(2px);box-shadow:none}
+.btn:disabled{opacity:.3;pointer-events:none}
+.btn.ghost{background:transparent;color:var(--chalk);border:1px solid var(--line);box-shadow:none}
+.skip-once{font-family:'IBM Plex Mono',monospace;font-size:11px;opacity:.62;
+  text-transform:none;letter-spacing:0}
+.btn.clay{background:var(--clay);color:var(--chalk)}
+.btn:focus-visible{outline:3px solid var(--chalk);outline-offset:2px}
+
+/* ---------- lista scelta ---------- */
+.picks{display:flex;flex-direction:column;gap:7px;margin-top:12px}
+.pick{
+  display:flex;align-items:center;gap:11px;width:100%;text-align:left;
+  background:rgba(242,240,230,.05);border:1px solid var(--line);
+  border-radius:3px;padding:11px 12px;color:var(--chalk);
+  transition:background .12s;
+}
+.pick:active{background:rgba(200,240,74,.16)}
+.pick:disabled{opacity:.26;pointer-events:none}
+.pick:focus-visible{outline:2px solid var(--lime);outline-offset:1px}
+.ovr{
+  font-family:'Bebas Neue',sans-serif;font-size:25px;line-height:1;
+  min-width:38px;text-align:center;color:var(--lime);
+}
+.pick-name{flex:1;min-width:0}
+.pick-name b{display:block;font-weight:600;font-size:14.5px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pick-name span{font-family:'IBM Plex Mono',monospace;font-size:10.5px;opacity:.62}
+.pos{
+  font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;
+  border:1px solid var(--line);border-radius:2px;padding:3px 6px;opacity:.8;
+}
+
+/* ---------- formazione ---------- */
+.field{
+  background:
+    repeating-linear-gradient(180deg,var(--pitch) 0 26px,var(--pitch-hi) 26px 52px);
+  border:1px solid var(--line);border-radius:4px;
+  padding:16px 12px;margin:14px 0;position:relative;
+}
+.field::before{
+  content:'';position:absolute;left:50%;top:0;bottom:0;width:1px;
+  background:rgba(242,240,230,.14);
+}
+.row{display:flex;justify-content:center;gap:8px;margin:9px 0;position:relative}
+.slot{
+  flex:1;max-width:104px;min-height:62px;
+  border:1px dashed rgba(242,240,230,.28);border-radius:3px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:5px 4px;text-align:center;background:rgba(10,31,25,.42);
+}
+.slot.filled{border-style:solid;border-color:var(--lime);background:rgba(200,240,74,.1)}
+.slot .sn{font-size:11px;font-weight:600;line-height:1.15;
+  overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.slot .so{font-family:'Bebas Neue',sans-serif;font-size:19px;color:var(--lime);line-height:1}
+.slot .sp{font-family:'IBM Plex Mono',monospace;font-size:9px;opacity:.62}
+
+/* ---------- esito ---------- */
+.verdict{text-align:center;padding:8px 0 4px}
+.record{
+  font-family:'Bebas Neue',sans-serif;font-size:clamp(56px,20vw,92px);
+  line-height:.85;letter-spacing:.02em;
+}
+.record.perfect{color:var(--lime)}
+.record-label{font-family:'IBM Plex Mono',monospace;font-size:11px;
+  letter-spacing:.18em;text-transform:uppercase;opacity:.62;margin-top:8px}
+.stats{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
+  background:var(--line);border:1px solid var(--line);border-radius:3px;
+  overflow:hidden;margin-top:14px;
+}
+.stat{background:var(--pitch);padding:11px 6px;text-align:center}
+.stat b{display:block;font-family:'Bebas Neue',sans-serif;font-size:26px;line-height:1}
+.stat span{font-family:'IBM Plex Mono',monospace;font-size:9.5px;
+  letter-spacing:.1em;text-transform:uppercase;opacity:.62}
+
+/* ---------- tabellino ---------- */
+.log{margin-top:14px;max-height:280px;overflow-y:auto;
+  border:1px solid var(--line);border-radius:3px}
+.match{
+  display:grid;grid-template-columns:26px 1fr 46px;gap:8px;align-items:center;
+  padding:8px 10px;border-bottom:1px solid rgba(242,240,230,.07);
+  font-size:13px;
+}
+.match:last-child{border-bottom:none}
+.match .gg{font-family:'IBM Plex Mono',monospace;font-size:10px;opacity:.62}
+.match .opp{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;opacity:.85}
+.match .res{font-family:'IBM Plex Mono',monospace;font-weight:600;text-align:right;font-size:12.5px}
+.match.w .res{color:var(--lime)}
+.match.d .res{color:#e8c74a}
+.ballon-card{border-color:rgba(232,199,74,.4);position:relative;overflow:hidden}
+.ballon-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,#e8c74a,transparent);
+}
+.ballon-card .label{color:#e8c74a;opacity:.85}
+.ballon-name{
+  font-family:'Bebas Neue',sans-serif;font-size:34px;line-height:1;
+  color:#e8c74a;letter-spacing:.02em;
+}
+.ballon-meta{
+  font-family:'IBM Plex Mono',monospace;font-size:12px;opacity:.65;
+  margin-top:6px;text-transform:uppercase;letter-spacing:.05em;
+}
+.ballon-team{
+  font-family:'IBM Plex Mono',monospace;font-size:10.5px;opacity:.62;
+  margin-top:3px;
+}
+.ballon-mio{
+  font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;
+  color:var(--lime);border:1px solid var(--lime);border-radius:2px;
+  padding:2px 6px;letter-spacing:.08em;text-transform:uppercase;
+  vertical-align:middle;margin-left:6px;
+}
+.match.l .res{color:var(--clay-fg)}
+.match .opp em{font-style:normal;font-family:'IBM Plex Mono',monospace;
+  font-size:9px;color:var(--clay-fg);border:1px solid var(--clay-fg);
+  border-radius:2px;padding:1px 3px;margin-left:4px}
+
+/* ---------- chimica ---------- */
+.chem{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.chip{
+  font-family:'IBM Plex Mono',monospace;font-size:10px;
+  border:1px solid var(--line);border-radius:2px;padding:4px 7px;opacity:.75;
+}
+.chip.on{border-color:var(--lime);color:var(--lime);opacity:1}
+
+/* giornata per giornata */
+.md-wait{text-align:center;padding:26px 8px;opacity:.62;
+  font-family:'IBM Plex Mono',monospace;font-size:12px}
+.md-esito{font-family:'IBM Plex Mono',monospace;font-size:11px;
+  letter-spacing:.18em;text-transform:uppercase;text-align:center;margin-bottom:4px}
+.md-esito.w{color:var(--lime)} .md-esito.d{color:#e8c74a} .md-esito.l{color:var(--clay-fg)}
+.md-score{font-family:'Bebas Neue',sans-serif;font-size:64px;line-height:.9;
+  text-align:center;letter-spacing:.02em}
+.md-score span{opacity:.62;margin:0 6px}
+.md-opp{text-align:center;font-family:'IBM Plex Mono',monospace;
+  font-size:11px;opacity:.62;margin-top:2px}
+.md-mar{display:flex;flex-wrap:wrap;gap:5px;justify-content:center;
+  margin-top:13px;padding-top:12px;border-top:1px solid var(--line)}
+.md-mar span{font-size:11.5px;background:rgba(200,240,74,.12);
+  border:1px solid rgba(200,240,74,.3);border-radius:2px;padding:3px 7px}
+.md-mar b{color:var(--lime)}
+.md-red{text-align:center;margin-top:10px;font-family:'IBM Plex Mono',monospace;
+  font-size:10px;color:var(--clay-fg);letter-spacing:.1em;text-transform:uppercase}
+.md-next{font-family:'Bebas Neue',sans-serif;font-size:26px;line-height:1}
+.pick-name em.nw{font-style:normal;color:var(--lime);opacity:.9}
+
+/* gossip goliardico */
+.gossip{
+  font-family:'IBM Plex Mono',monospace;font-size:11.5px;line-height:1.55;
+  color:var(--chalk);opacity:.7;background:rgba(242,240,230,.04);
+  border-left:2px solid var(--lime);border-radius:2px;
+  padding:9px 12px;margin:2px 0 12px;
+}
+
+/* nome squadra */
+.team-input{
+  width:100%;background:rgba(242,240,230,.05);border:1px solid var(--line);
+  border-radius:3px;padding:11px 12px;color:var(--lime);
+  font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.03em;
+  text-transform:uppercase;
+}
+.team-input::placeholder{color:var(--chalk);opacity:.62}
+.team-input:focus{outline:none;border-color:var(--lime)}
+
+/* menu iniziale */
+.menu-note{margin-top:14px;font-size:12px;opacity:.62;line-height:1.55;text-align:center}
+
+/* setup sfida */
+.sfida-add{display:flex;gap:8px}
+.sfida-add .team-input{flex:1}
+.sfida-add .btn{width:auto;margin-top:0;padding:0 18px;font-size:16px;white-space:nowrap}
+.sfida-list{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}
+.sfida-chip{
+  display:flex;align-items:center;gap:6px;
+  background:rgba(200,240,74,.08);border:1px solid var(--lime);border-radius:20px;
+  padding:6px 8px 6px 13px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;
+  color:var(--lime);
+}
+.sfida-rm{
+  background:transparent;border:none;color:var(--lime);opacity:.62;
+  font-size:16px;line-height:1;cursor:pointer;padding:2px 4px;
+}
+.sfida-rm:focus-visible{outline:2px solid var(--lime);outline-offset:1px}
+
+/* draft a turni */
+.sfida-turno{
+  font-family:'Bebas Neue',sans-serif;font-size:30px;line-height:1.1;
+  color:var(--lime);text-align:center;margin:4px 0 14px;letter-spacing:.02em;
+}
+
+/* classifica finale sfida */
+.sf-row{display:grid;grid-template-columns:24px 1fr auto 60px;gap:10px;
+  align-items:center;padding:10px 4px;border-bottom:1px solid rgba(242,240,230,.08);
+  font-size:14px}
+.sf-row:last-child{border-bottom:none}
+.sf-p{font-family:'IBM Plex Mono',monospace;font-size:11px;opacity:.62;text-align:center}
+.sf-n{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sf-rec{font-family:'IBM Plex Mono',monospace;font-size:12px;opacity:.62}
+.sf-pt{font-family:'Bebas Neue',sans-serif;font-size:19px;color:var(--lime);text-align:right}
+.sf-winner{background:rgba(200,240,74,.07);border-radius:4px}
+.sf-winner .sf-n{color:var(--lime)}
+.sf-crown{color:var(--lime)}
+.sf-tabellino{padding:12px 4px;border-bottom:1px solid rgba(242,240,230,.08);
+  font-size:13px;line-height:1.6}
+.sf-tabellino:last-child{border-bottom:none}
+.sf-tabellino b{font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:.02em}
+
+/* selettore modulo */
+.mod-pick{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+.mode-pick{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+.random-note{font-size:12.5px;opacity:.62;line-height:1.5;margin-bottom:14px}
+.ovr.expert{color:var(--chalk);opacity:.62;font-size:19px}
+.mod-btn{background:rgba(242,240,230,.05);border:1px solid var(--line);
+  border-radius:3px;padding:10px 4px;color:var(--chalk);text-align:center;
+  display:flex;flex-direction:column;gap:2px;transition:all .12s}
+.mod-btn b{font-family:'Bebas Neue',sans-serif;font-size:21px;line-height:1;letter-spacing:.03em}
+.mod-btn span{font-family:'IBM Plex Mono',monospace;font-size:9px;opacity:.62;
+  text-transform:uppercase;letter-spacing:.06em}
+.mod-btn.on{border-color:var(--lime);background:rgba(200,240,74,.13)}
+.mod-btn.on b{color:var(--lime)}
+.mod-btn.on span{opacity:.8}
+.mod-note{margin-top:10px;font-size:11.5px;opacity:.62;line-height:1.45}
+
+/* albo dei record */
+.albo-vuoto{font-family:'IBM Plex Mono',monospace;font-size:11px;opacity:.62;
+  line-height:1.6;padding:6px 0}
+.albo-rec{font-family:'Bebas Neue',sans-serif;font-size:38px;line-height:1;color:var(--lime)}
+.albo-meta{font-family:'IBM Plex Mono',monospace;font-size:10.5px;opacity:.62;margin-top:3px}
+.albo-top{font-family:'IBM Plex Mono',monospace;font-size:10px;opacity:.62;margin-top:5px}
+.albo-rosa{display:flex;flex-wrap:wrap;gap:4px;margin-top:10px}
+.albo-rosa span{font-family:'IBM Plex Mono',monospace;font-size:9.5px;
+  border:1px solid var(--line);border-radius:2px;padding:2px 5px;opacity:.62}
+.albo-worst{margin-top:11px;padding-top:11px;border-top:1px dashed var(--line)}
+.albo-worst-rec{font-family:'Bebas Neue',sans-serif;font-size:22px;line-height:1;
+  color:var(--clay-fg);opacity:.85}
+.albo-worst-meta{font-family:'IBM Plex Mono',monospace;font-size:9.5px;
+  opacity:.62;margin-top:2px;font-style:italic}
+.albo-cnt{font-family:'IBM Plex Mono',monospace;font-size:9px;opacity:.62;
+  margin-top:11px;letter-spacing:.1em;text-transform:uppercase}
+
+/* classifica online */
+.online-row{display:grid;grid-template-columns:20px 1fr auto 44px;
+  gap:8px;align-items:center;padding:7px 2px;font-size:12.5px;
+  border-bottom:1px solid rgba(242,240,230,.07)}
+.online-row:last-child{border-bottom:none}
+.on-p{font-family:'IBM Plex Mono',monospace;font-size:10px;opacity:.62;text-align:center}
+.on-t{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.on-r{font-family:'IBM Plex Mono',monospace;font-size:11px;opacity:.62}
+.on-pt{font-family:'Bebas Neue',sans-serif;font-size:16px;color:var(--lime);text-align:right}
+
+/* badge nuovo record */
+.rec-badge{display:inline-block;margin-top:12px;padding:5px 11px;
+  background:var(--lime);color:var(--slate);border-radius:2px;
+  font-family:'IBM Plex Mono',monospace;font-size:9.5px;font-weight:600;
+  letter-spacing:.14em;text-transform:uppercase}
+.rec-badge.legend{background:transparent;color:var(--lime);
+  border:1px solid var(--lime);margin-left:6px}
+
+/* striscia di imbattibilita' */
+.md-streak{border:1px solid var(--lime);border-radius:3px;
+  background:rgba(200,240,74,.09);padding:11px 14px;margin:14px 0;
+  display:flex;align-items:baseline;justify-content:space-between;gap:10px}
+.md-streak b{font-family:'Bebas Neue',sans-serif;font-size:27px;line-height:1;
+  color:var(--lime);letter-spacing:.03em}
+.md-streak span{font-family:'IBM Plex Mono',monospace;font-size:10px;
+  opacity:.62;text-align:right;letter-spacing:.06em}
+
+/* tensione nelle ultime giornate da imbattuto */
+#matchday.tensione .md-score{color:var(--lime)}
+#matchday.tensione .card.pitch-lines{border-color:rgba(200,240,74,.45)}
+.btn.finale{background:var(--clay);color:var(--chalk);
+  font-size:27px;letter-spacing:.08em}
+
+/* classifica */
+.st-row{display:grid;grid-template-columns:20px 1fr 26px 20px 20px 20px 32px;
+  gap:4px;align-items:center;padding:6px 2px;font-size:12.5px;
+  border-bottom:1px solid rgba(242,240,230,.07)}
+.st-row:last-child{border-bottom:none}
+.st-head{font-family:'IBM Plex Mono',monospace;font-size:9px;
+  letter-spacing:.08em;text-transform:uppercase;opacity:.62;border-bottom-color:var(--line)}
+.st-head span{text-align:center}
+.st-head span:nth-child(2){text-align:left}
+.st-p{font-family:'IBM Plex Mono',monospace;font-size:10px;opacity:.62;text-align:center}
+.st-t{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.st-pt{font-family:'Bebas Neue',sans-serif;font-size:17px;text-align:center}
+.st-row>span:nth-child(4),.st-row>span:nth-child(5),.st-row>span:nth-child(6){
+  text-align:center;font-size:11px;opacity:.62;font-family:'IBM Plex Mono',monospace}
+.st-dr{font-family:'IBM Plex Mono',monospace;font-size:10.5px;opacity:.62;text-align:right}
+.st-me{background:rgba(200,240,74,.12);border-left:2px solid var(--lime);
+  padding-left:4px;margin-left:-4px}
+.st-me .st-t{font-weight:700;color:var(--lime)}
+.st-me .st-pt{color:var(--lime)}
+
+/* altri risultati di giornata */
+.md-altre{margin-top:12px;padding-top:11px;border-top:1px solid var(--line)}
+.md-alt{display:grid;grid-template-columns:1fr auto 1fr;gap:7px;align-items:center;
+  font-size:10.5px;opacity:.62;padding:2px 0;font-family:'IBM Plex Mono',monospace}
+.md-alt span:first-child{text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.md-alt span:last-child{text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.md-alt b{font-family:'Bebas Neue',sans-serif;font-size:14px;opacity:.9}
+
+/* marcatori finali */
+.scorer{display:grid;grid-template-columns:24px 1fr 30px;gap:9px;align-items:center;
+  padding:7px 2px;border-bottom:1px solid rgba(242,240,230,.07);font-size:13.5px}
+.scorer:last-child{border-bottom:none}
+.sc-pos{font-family:'IBM Plex Mono',monospace;font-size:9px;opacity:.62;text-align:center}
+.sc-n{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sc-g{font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--lime);text-align:right}
+
+.match .opp i{font-style:normal;display:block;font-size:10px;opacity:.62;
+  font-family:'IBM Plex Mono',monospace;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.match{grid-template-columns:26px 1fr 46px}
+
+.hidden{display:none!important}
+.center{text-align:center}
+.tiny{font-size:11.5px;opacity:.62;font-family:'IBM Plex Mono',monospace;
+  line-height:1.5;margin-top:18px;text-align:center}
+
+@media(prefers-reduced-motion:reduce){
+  *{transition:none!important;animation:none!important}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="eyebrow">Amatori CSI · Calcio a 7 · Serie B Open Brescia</div>
+  <h1>26<span class="zero" id="zeroZero">-0-0</span></h1>
+  <div class="egg-toast hidden" id="eggToast"></div>
+  <div class="sub">Girone M · stagione 2025-26</div>
+</header>
+
+<!-- ===== FASE 0: MENU ===== -->
+<section id="menu">
+  <div class="card pitch-lines">
+    <h2 class="label">Come giochi?</h2>
+    <button class="btn" id="menuSolo">Gioca da solo</button>
+    <button class="btn clay" id="menuSfida">Sfida gli amici</button>
+    <div class="menu-note">La sfida si gioca passandosi lo stesso telefono a turno: ogni giocatore fa il suo draft, poi ogni squadra gioca la sua stagione, vince chi fa più punti.</div>
+  </div>
+</section>
+
+<!-- ===== FASE 0b: SETUP SFIDA ===== -->
+<section id="sfidaSetup" class="hidden">
+  <div class="card pitch-lines">
+    <h2 class="label">Chi gioca?</h2>
+    <div class="sfida-add">
+      <label for="sfidaNomeInput" class="visually-hidden">Nome giocatore</label>
+      <input type="text" id="sfidaNomeInput" class="team-input" maxlength="18"
+             placeholder="NOME GIOCATORE" autocomplete="off">
+      <button class="btn" id="sfidaAddBtn">Aggiungi</button>
+    </div>
+    <div class="sfida-list" id="sfidaList"></div>
+    <div class="tiny" id="sfidaHint">Servono almeno 2 giocatori.</div>
+  </div>
+  <button class="btn clay" id="sfidaStartBtn" disabled>Inizia il draft</button>
+  <button class="btn ghost" id="sfidaBackBtn">Torna al menu</button>
+</section>
+
+<!-- ===== FASE 0c: DRAFT SFIDA (a serpentina, pool condiviso) ===== -->
+<section id="sfidaDraft" class="hidden">
+  <div class="card pitch-lines">
+    <h2 class="label">Turno <span id="sfidaTurnoCount">1 / 1</span></h2>
+    <div class="sfida-turno" id="sfidaTurnoNome" aria-live="polite" aria-atomic="true">—</div>
+    <div class="reel">
+      <div class="reel-inner">
+        <div class="reel-team" id="sfidaReelTeam">—</div>
+        <div class="reel-meta" id="sfidaReelMeta">premi estrai</div>
+      </div>
+    </div>
+    <button class="btn" id="sfidaSpinBtn">Estrai squadra</button>
+    <div class="picks hidden" id="sfidaPickList"></div>
+  </div>
+  <div class="field" id="sfidaField"></div>
+</section>
+
+<!-- ===== FASE 0d: RISULTATO SFIDA ===== -->
+<section id="sfidaResult" class="hidden">
+  <div class="card pitch-lines">
+    <h2 class="label">Classifica della sfida</h2>
+    <div id="sfidaBoard"></div>
+  </div>
+  <div class="card">
+    <h2 class="label">Tabellini</h2>
+    <div id="sfidaTabellini"></div>
+  </div>
+  <button class="btn" id="sfidaAgainBtn">Nuova sfida</button>
+  <button class="btn ghost" id="sfidaMenuBtn">Torna al menu</button>
+</section>
+
+<!-- ===== FASE 1: DRAFT ===== -->
+<section id="draft" class="hidden">
+
+  <div class="card">
+    <label class="label" for="teamName">Nome squadra</label>
+    <input type="text" id="teamName" class="team-input" maxlength="24"
+           placeholder="LA TUA SQUADRA" autocomplete="off">
+  </div>
+
+  <div class="card" id="alboCard">
+    <h2 class="label">Miglior stagione</h2>
+    <div id="albo"></div>
+  </div>
+
+  <div class="card" id="onlineCard">
+    <h2 class="label">Classifica online · tutta la squadra</h2>
+    <div id="onlineBoard"></div>
+  </div>
+
+  <div class="card">
+    <h2 class="label">Modalità</h2>
+    <div class="mode-pick" id="modePick"></div>
+    <div class="mod-note" id="modeNote"></div>
+  </div>
+
+  <div class="card">
+    <h2 class="label">Modulo</h2>
+    <div class="mod-pick" id="modPick"></div>
+    <div class="mod-note" id="modNote"></div>
+  </div>
+
+  <div class="card pitch-lines" id="draftNormale">
+    <h2 class="label">Estrazione <span id="pickCount">1 / 7</span></h2>
+    <div class="reel">
+      <div class="reel-inner" id="reel">
+        <div class="reel-team" id="reelTeam">—</div>
+        <div class="reel-meta" id="reelMeta">premi estrai</div>
+      </div>
+    </div>
+    <button class="btn" id="spinBtn">Estrai squadra</button>
+    <div class="picks hidden" id="pickList"></div>
+    <button class="btn ghost hidden" id="skipBtn">Ripesca un'altra squadra <span class="skip-once">· una sola volta</span></button>
+  </div>
+
+  <div class="card pitch-lines hidden" id="draftRandom">
+    <h2 class="label">Pesca casuale</h2>
+    <div class="random-note">Sette giocatori a caso da tutto il database, senza vincoli di squadra.</div>
+    <button class="btn" id="randomBtn">Pesca la rosa</button>
+  </div>
+
+  <div class="field" id="field"></div>
+
+  <div class="card">
+    <h2 class="label">Chimica</h2>
+    <div class="chem" id="chem"></div>
+  </div>
+
+  <button class="btn clay hidden" id="mdBtn">Giornata per giornata</button>
+  <button class="btn hidden" id="simBtn">Simula tutta la stagione</button>
+  <button class="btn ghost" id="resetBtn">Ricomincia</button>
+  <button class="btn ghost" id="draftMenuBtn">Torna al menu</button>
+</section>
+
+<!-- ===== FASE 1b: GIORNATA PER GIORNATA ===== -->
+<section id="matchday" class="hidden">
+  <div class="md-streak hidden" id="mdStreak"></div>
+
+  <div class="card pitch-lines">
+    <h2 class="label">Giornata <span id="mdCount">0 / 26</span> · bilancio <span id="mdRec">0-0-0</span></h2>
+    <div id="mdBox" aria-live="polite" aria-atomic="true"></div>
+  </div>
+  <div class="card">
+    <h2 class="label">Prossima</h2>
+    <div id="mdNextOpp" class="md-next">—</div>
+  </div>
+
+  <button class="btn" id="mdNext">Gioca la giornata</button>
+  <button class="btn clay hidden" id="mdEnd">Vedi il bilancio finale</button>
+  <div class="gossip hidden" id="mdGossip"></div>
+
+  <div class="card">
+    <h2 class="label">Classifica</h2>
+    <div id="mdStand"></div>
+  </div>
+
+  <button class="btn ghost" id="mdQuit">Abbandona</button>
+</section>
+
+<!-- ===== FASE 2: ESITO ===== -->
+<section id="result" class="hidden">
+  <div class="card pitch-lines">
+    <div class="verdict">
+      <div class="record" id="record" aria-live="polite" aria-atomic="true">—</div>
+      <div class="record-label" id="recordLabel"></div>
+      <div class="rec-badge hidden" id="recBadge">nuovo primato personale</div>
+      <div class="rec-badge legend hidden" id="legendBadge">rosa 100% Implast · rispetto</div>
+    </div>
+    <div class="stats">
+      <div class="stat"><b id="stPos">—</b><span>posizione</span></div>
+      <div class="stat"><b id="stGf">—</b><span>fatti</span></div>
+      <div class="stat"><b id="stGs">—</b><span>subiti</span></div>
+    </div>
+    <div class="stats" style="margin-top:1px">
+      <div class="stat"><b id="stOvr">—</b><span>media rosa</span></div>
+      <div class="stat"><b id="stPt">—</b><span>punti</span></div>
+      <div class="stat"><b id="stMod">—</b><span>modulo</span></div>
+    </div>
+  </div>
+
+  <div class="card ballon-card">
+    <h2 class="label">Pallone d'oro della stagione</h2>
+    <div id="ballon" aria-live="polite" aria-atomic="true"></div>
+  </div>
+
+  <div class="card">
+    <h2 class="label">Tabellino</h2>
+    <div class="log" id="log"></div>
+  </div>
+
+  <div class="card">
+    <h2 class="label">Classifica finale</h2>
+    <div id="standings"></div>
+  </div>
+
+  <div class="card">
+    <h2 class="label">I tuoi marcatori</h2>
+    <div id="topScorers"></div>
+  </div>
+
+  <button class="btn" id="againBtn">Nuova stagione</button>
+  <button class="btn ghost" id="resultMenuBtn">Torna al menu</button>
+</section>
+
+<div class="tiny">
+  Rating calcolati dai marcatori ufficiali del girone<br>dopo 24 giornate. I portieri sono
+  stimati dai gol subiti.
+</div>
+
+</div>
+
+<script>
+const DATA = {"campionato":"Amatori CSI - Calcio a 7 - Serie B Open Brescia - Girone M","stagione":"2025-26","giornate":26,"lega":{"partite":156,"gol_totali":1069,"vittorie_casa":77,"pareggi":24,"vittorie_trasferta":55,"gol_casa":582,"gol_trasferta":487,"gol_medi":3.426,"home_adv":1.195,"p_casa":0.494,"p_pari":0.154},"giocate":24,"squadre":{"Real Coccaglio":{"pt":57,"g":24,"v":18,"n":3,"p":3,"f":133,"s":56,"forza":1.0,"difesa":0.966},"Giaffa Clusane":{"pt":53,"g":24,"v":17,"n":2,"p":5,"f":122,"s":53,"forza":0.926,"difesa":1.0},"Gso Lions":{"pt":49,"g":24,"v":15,"n":4,"p":5,"f":99,"s":65,"forza":0.852,"difesa":0.865},"Paratico Blue":{"pt":47,"g":24,"v":14,"n":5,"p":5,"f":98,"s":57,"forza":0.815,"difesa":0.955},"Anonimo Pub":{"pt":39,"g":24,"v":12,"n":3,"p":9,"f":80,"s":70,"forza":0.667,"difesa":0.809},"Atletico Sr":{"pt":35,"g":24,"v":10,"n":5,"p":9,"f":70,"s":74,"forza":0.593,"difesa":0.764},"S.g.b. Iseo":{"pt":31,"g":24,"v":9,"n":4,"p":11,"f":64,"s":78,"forza":0.519,"difesa":0.719},"Softmetal":{"pt":30,"g":24,"v":9,"n":3,"p":12,"f":58,"s":76,"forza":0.5,"difesa":0.742},"Implast":{"pt":26,"g":24,"v":8,"n":2,"p":14,"f":61,"s":77,"forza":0.426,"difesa":0.73},"Sangiu United":{"pt":26,"g":24,"v":7,"n":5,"p":12,"f":86,"s":105,"forza":0.426,"difesa":0.416},"Gso Gabbiani":{"pt":26,"g":24,"v":6,"n":8,"p":10,"f":81,"s":110,"forza":0.426,"difesa":0.36},"Nigoline":{"pt":22,"g":24,"v":6,"n":4,"p":14,"f":80,"s":106,"forza":0.352,"difesa":0.404},"Gso Capriolo":{"pt":3,"g":24,"v":1,"n":0,"p":23,"f":37,"s":142,"forza":0.0,"difesa":0.0}},"giocatori":[{"n":"Ghidini Marco","t":"Anonimo Pub","g":34,"p":"A","r":95,"y":0,"rc":0,"d":1.0,"src":"manuale"},{"n":"Volpi Pietro","t":"Giaffa Clusane","g":30,"p":"A","r":94,"y":4,"rc":0,"d":0.49},{"n":"Vezzoli Michele","t":"Real Coccaglio","g":30,"p":"C","r":96,"y":0,"rc":0,"d":1.0,"src":"pdf"},{"n":"Kuci Emilijano","t":"Sangiu United","g":30,"p":"A","r":87,"y":0,"rc":0,"d":1.0,"src":"manuale"},{"n":"Zanni Matteo","t":"Paratico Blue","g":23,"p":"C","r":94,"y":0,"rc":0,"d":1.0,"src":"manuale"},{"n":"Pezzotti Andrea","t":"Nigoline","g":23,"p":"A","r":90,"y":0,"rc":0,"d":1.0,"src":"manuale"},{"n":"Ferrandi Andrea","t":"Real Coccaglio","g":22,"p":"A","r":92,"y":1,"rc":0,"d":0.87,"src":"manuale"},{"n":"Archetti Tommaso","t":"Giaffa Clusane","g":22,"p":"A","r":87,"y":3,"rc":1,"d":0.11},{"n":"Baiguera Cristian","t":"Real Coccaglio","g":21,"p":"A","r":90,"y":0,"rc":0,"d":1.0},{"n":"Bertazzoli Mattia","t":"Paratico Blue","g":19,"p":"C","r":88,"y":0,"rc":0,"d":1.0,"src":"manuale"},{"n":"Roland Idri","t":"Atletico Sr","g":18,"p":"A","r":88,"y":0,"rc":0,"d":1.0,"src":"manuale"},{"n":"Montini Michele","t":"S.g.b. Iseo","g":18,"p":"A","r":91,"y":0,"rc":0,"d":1.0,"src":"manuale"},{"n":"Bazan Alessio","t":"Giaffa Clusane","g":17,"p":"A","r":85,"y":0,"rc":1,"d":0.5,"src":"pdf"},{"n":"Russo Cristian","t":"Gso Lions","g":15,"p":"C","r":88,"y":0,"rc":0,"d":1.0,"src":"manuale"},{"n":"Turelli Andrea","t":"Nigoline","g":15,"p":"C","r":88,"y":0,"rc":0,"d":1.0,"src":"manuale"},{"n":"Tonelli Federico","t":"Gso Lions","g":15,"p":"C","r":88,"y":0,"rc":0,"d":1.0,"src":"manuale"},{"n":"Scaratti Giorgio","t":"Atletico Sr","g":14,"p":"C","r":89,"y":0,"rc":0,"d":1.0,"src":"manuale"},{"n":"Vianelli Riccardo","t":"S.g.b. Iseo","g":14,"p":"D","r":92,"y":3,"rc":0,"d":0.61,"src":"manuale"},{"n":"Gatti Leonardo","t":"Giaffa Clusane","g":14,"p":"C","r":86,"y":0,"rc":0,"d":1.0,"src":"manuale"},{"n":"Lizza Michele","t":"Paratico Blue","g":14,"p":"A","r":85,"y":0,"rc":0,"d":1.0,"src":"manuale"},{"n":"Mauri Francesco","t":"Gso Gabbiani","g":14,"p":"A","r":82,"y":0,"rc":0,"d":1.0},{"n":"Navoni Nicolas","t":"Real Coccaglio","g":13,"p":"A","r":84,"y":0,"rc":0,"d":1.0,"src":"manuale"},{"n":"Ben Hadda Soufiane","t":"Sangiu United","g":12,"p":"D","r":79,"y":0,"rc":1,"d":0.5,"src":"pdf"},{"n":"Bessi Thomas","t":"Gso Capriolo","g":11,"p":"A","r":81,"y":0,"rc":0,"d":1.0,"src":"manuale"},{"n":"Scuri Simone","t":"Real Coccaglio","g":11,"p":"C","r":85,"y":0,"rc":0,"d":1.0,"src":"manuale"},{"n":"Muratori Andrea","t":"Gso Gabbiani","g":10,"p":"D","r":78,"y":0,"rc":0,"d":1.0,"src":"pdf"},{"n":"Vermi Federico","t":"Softmetal","g":10,"p":"A","r":82,"y":0,"rc":0,"d":1.0,"src":"manuale"},{"n":"Moraschi Andrea","t":"Gso Lions","g":10,"p":"A","r":80,"y":0,"rc":1,"d":0.5,"src":"manuale"},{"n":"Scolari Davide","t":"Giaffa Clusane","g":10,"p":"C","r":85,"y":1,"rc":0,"d":0.87,"src":"manuale"},{"n":"Biolghini Paolo","t":"Giaffa Clusane","g":9,"p":"C","r":84,"y":2,"rc":0,"d":0.74,"src":"manuale"},{"n":"Marini Massimiliano","t":"Gso Gabbiani","g":9,"p":"A","r":77,"y":0,"rc":0,"d":1.0,"src":"pdf"},{"n":"Barbieri Massimo","t":"Gso Gabbiani","g":9,"p":"C","r":77,"y":0,"rc":0,"d":1.0,"src":"pdf"},{"n":"Faccoli Alessandro","t":"Gso Lions","g":9,"p":"D","r":92,"y":0,"rc":0,"d":1.0,"src":"manuale"},{"n":"Toure Mbaye Sy","t":"Atletico Sr","g":9,"p":"A","r":80,"y":0,"rc":0,"d":1.0,"src":"manuale"},{"n":"Zatti Fausto","t":"Giaffa Clusane","g":9,"p":"A","r":79,"y":0,"rc":0,"d":1.0,"src":"pdf"},{"n":"Brescianini Mirco","t":"Gso Lions","g":9,"p":"A","r":81,"y":0,"rc":0,"d":1.0,"src":"manuale"},{"n":"Bektic Sanel","t":"S.g.b. Iseo","g":9,"p":"A","r":77,"y":0,"rc":0,"d":1.0,"src":"pdf"},{"n":"Amodeo Felotti Luca","t":"Gso Capriolo","g":9,"p":"C","r":80,"y":1,"rc":1,"d":0.37,"src":"manuale"},{"n":"Brescianini Angelo","t":"Gso Gabbiani","g":8,"p":"A","r":76,"y":0,"rc":0,"d":1.0,"src":"pdf"},{"n":"Muratori Alberto","t":"Gso Gabbiani","g":8,"p":"C","r":76,"y":0,"rc":0,"d":1.0,"src":"pdf"},{"n":"Bonazza Andrea","t":"Softmetal","g":8,"p":"C","r":85,"y":0,"rc":0,"d":1.0,"src":"manuale"},{"n":"Marletta Gabriele","t":"Softmetal","g":8,"p":"A","r":80,"y":0,"rc":0,"d":1.0,"src":"manuale"},{"n":"Alghisi Marco","t":"Nigoline","g":8,"p":"C","r":84,"y":0,"rc":0,"d":1.0,"src":"manuale"},{"n":"Ghezzi Matteo","t":"Nigoline","g":7,"p":"D","r":87,"y":0,"rc":0,"d":1.0,"src":"manuale"},{"n":"Lancini Federico","t":"Sangiu United","g":7,"p":"D","r":75,"y":0,"rc":0,"d":1.0,"src":"pdf"},{"n":"Inverardi Daniele","t":"Softmetal","g":7,"p":"A","r":75,"y":0,"rc":0,"d":1.0,"src":"pdf"},{"n":"Er Zini Adam","t":"Sangiu United","g":7,"p":"C","r":75,"y":0,"rc":0,"d":1.0,"src":"pdf"},{"n":"Cristini Damiano","t":"Anonimo Pub","g":7,"p":"D","r":88,"y":0,"rc":0,"d":1.0,"src":"manuale"},{"n":"Martinelli Fabio","t":"Paratico Blue","g":7,"p":"C","r":79,"y":0,"rc":0,"d":1.0,"src":"manuale"},{"n":"Foresti Marco","t":"Paratico Blue","g":7,"p":"C","r":78,"y":0,"rc":0,"d":1.0,"src":"manuale"},{"n":"Dra Kamal","t":"Gso Gabbiani","g":7,"p":"C","r":75,"y":0,"rc":0,"d":1.0},{"n":"Boni Davide","t":"Nigoline","g":7,"p":"C","r":82,"y":0,"rc":0,"d":1.0,"src":"manuale"},{"n":"Lancini Michele","t":"Gso Gabbiani","g":6,"p":"C","r":74,"y":0,"rc":0,"d":1.0,"src":"pdf"},{"n":"Bettoni Davide","t":"Nigoline","g":6,"p":"C","r":73,"y":0,"rc":0,"d":1.0,"src":"pdf"},{"n":"Sala Riccardo","t":"Real Coccaglio","g":6,"p":"C","r":82,"y":1,"rc":0,"d":0.87,"src":"manuale"},{"n":"Morandi Loris","t":"Softmetal","g":6,"p":"D","r":83,"y":0,"rc":0,"d":1.0,"src":"manuale"},{"n":"Lancini Michele (RC)","t":"Real Coccaglio","g":6,"p":"A","r":76,"y":0,"rc":0,"d":1.0,"src":"pdf"},{"n":"Capizzi Simone","t":"Anonimo Pub","g":6,"p":"C","r":80,"y":0,"rc":0,"d":1.0,"src":"manuale"},{"n":"Alberti Riccardo","t":"Paratico Blue","g":6,"p":"A","r":75,"y":0,"rc":0,"d":1.0,"src":"pdf"},{"n":"Pozzi Alessio","t":"Gso Lions","g":6,"p":"C","r":79,"y":0,"rc":0,"d":1.0,"src":"manuale"},{"n":"Girelli Giordano","t":"Anonimo Pub","g":5,"p":"C","r":79,"y":0,"rc":0,"d":1.0,"src":"manuale"},{"n":"Cenedella Lorenzo","t":"Real Coccaglio","g":5,"p":"D","r":95,"y":1,"rc":0,"d":0.87,"src":"manuale"},{"n":"Prospero Marco","t":"Anonimo Pub","g":5,"p":"A","r":73,"y":0,"rc":0,"d":1.0,"src":"pdf"},{"n":"Baresi Marco","t":"Atletico Sr","g":5,"p":"C","r":80,"y":0,"rc":0,"d":1.0,"src":"manuale"},{"n":"Panigada Simone","t":"Anonimo Pub","g":5,"p":"D","r":87,"y":0,"rc":0,"d":1.0,"src":"manuale"},{"n":"Corini Mirco","t":"Softmetal","g":5,"p":"C","r":82,"y":0,"rc":0,"d":1.0,"src":"manuale"},{"n":"Picco Christian","t":"Giaffa Clusane","g":5,"p":"C","r":86,"y":1,"rc":0,"d":0.87,"src":"manuale"},{"n":"Bertoni Giacomo","t":"Real Coccaglio","g":5,"p":"C","r":80,"y":0,"rc":0,"d":1.0,"src":"manuale"},{"n":"Berardi Lorenzo","t":"Paratico Blue","g":5,"p":"C","r":74,"y":0,"rc":0,"d":1.0,"src":"pdf"},{"n":"Rodegari Nicolo","t":"Sangiu United","g":5,"p":"A","r":72,"y":1,"rc":0,"d":0.87,"src":"pdf"},{"n":"Scolari Davide (NIG)","t":"Nigoline","g":5,"p":"C","r":72,"y":0,"rc":0,"d":1.0,"src":"pdf"},{"n":"Tinti Andrea","t":"Gso Lions","g":5,"p":"C","r":79,"y":0,"rc":0,"d":1.0,"src":"manuale"},{"n":"Cipolla Cristian","t":"Anonimo Pub","g":5,"p":"A","r":70,"y":0,"rc":0,"d":1.0,"src":"manuale"},{"n":"Garosio Damiano","t":"S.g.b. Iseo","g":5,"p":"C","r":82,"y":2,"rc":1,"d":0.24,"src":"manuale"},{"n":"Sbardellati Nicola","t":"Gso Lions","g":5,"p":"C","r":79,"y":0,"rc":0,"d":1.0,"src":"manuale"},{"n":"Marcandelli Demetrio","t":"Atletico Sr","g":5,"p":"C","r":80,"y":0,"rc":0,"d":1.0,"src":"manuale"},{"n":"Bracchi Mattia","t":"Anonimo Pub","g":4,"p":"C","r":78,"y":0,"rc":0,"d":1.0,"src":"manuale"},{"n":"Tortelli Nicola","t":"S.g.b. Iseo","g":4,"p":"A","r":71,"y":0,"rc":0,"d":1.0,"src":"pdf"},{"n":"Donghi Alessandro","t":"Atletico Sr","g":4,"p":"D","r":82,"y":0,"rc":0,"d":1.0,"src":"manuale"},{"n":"Duina Nicola","t":"Gso Lions","g":4,"p":"D","r":88,"y":0,"rc":0,"d":1.0,"src":"manuale"},{"n":"Tortelli Marco","t":"S.g.b. Iseo","g":4,"p":"C","r":78,"y":0,"rc":0,"d":1.0,"src":"manuale"},{"n":"Longhitano Luca","t":"Softmetal","g":4,"p":"C","r":81,"y":0,"rc":0,"d":1.0,"src":"manuale"},{"n":"Pusterla Andrea","t":"Real Coccaglio","g":3,"p":"C","r":78,"y":0,"rc":0,"d":1.0,"src":"manuale"},{"n":"Gioffre Francesco","t":"Sangiu United","g":3,"p":"A","r":69,"y":0,"rc":0,"d":1.0,"src":"pdf"},{"n":"Sabbadini Gabriele","t":"Gso Capriolo","g":3,"p":"D","r":67,"y":0,"rc":0,"d":1.0,"src":"pdf"},{"n":"Congedo Sottocasa Ludovico","t":"Atletico Sr","g":3,"p":"C","r":77,"y":0,"rc":0,"d":1.0,"src":"manuale"},{"n":"Lorini Cristian","t":"Softmetal","g":3,"p":"D","r":80,"y":0,"rc":0,"d":1.0,"src":"manuale"},{"n":"Bonardi Paolo","t":"Nigoline","g":3,"p":"C","r":69,"y":0,"rc":0,"d":1.0,"src":"pdf"},{"n":"Lancini Michael","t":"Sangiu United","g":3,"p":"C","r":69,"y":0,"rc":0,"d":1.0,"src":"pdf"},{"n":"Bracchi Luca","t":"Anonimo Pub","g":3,"p":"D","r":78,"y":0,"rc":0,"d":1.0,"src":"manuale"},{"n":"Bianchetti Michele","t":"Gso Gabbiani","g":3,"p":"A","r":69,"y":0,"rc":0,"d":1.0,"src":"pdf"},{"n":"Ramera Luca","t":"S.g.b. Iseo","g":3,"p":"C","r":83,"y":0,"rc":0,"d":1.0,"src":"manuale"},{"n":"Raddi Davide","t":"Gso Capriolo","g":2,"p":"D","r":66,"y":0,"rc":0,"d":1.0,"src":"pdf"},{"n":"Ansah Godfred","t":"Real Coccaglio","g":2,"p":"D","r":78,"y":0,"rc":0,"d":1.0,"src":"manuale"},{"n":"Shtemari Christian","t":"Paratico Blue","g":2,"p":"C","r":69,"y":0,"rc":0,"d":1.0,"src":"pdf"},{"n":"Paris Francesco","t":"Atletico Sr","g":2,"p":"D","r":78,"y":0,"rc":0,"d":1.0,"src":"manuale"},{"n":"Inverardi Alessandro","t":"Paratico Blue","g":2,"p":"D","r":85,"y":0,"rc":0,"d":1.0,"src":"manuale"},{"n":"Marco Marzoli","t":"Paratico Blue","g":2,"p":"D","r":85,"y":0,"rc":0,"d":1.0,"src":"manuale"},{"n":"Rondi Matteo","t":"Gso Lions","g":2,"p":"D","r":82,"y":0,"rc":0,"d":1.0,"src":"manuale"},{"n":"Orizio Simone","t":"Softmetal","g":2,"p":"C","r":68,"y":0,"rc":0,"d":1.0,"src":"pdf"},{"n":"Ferrari Davide","t":"Paratico Blue","g":2,"p":"D","r":82,"y":0,"rc":0,"d":1.0,"src":"manuale"},{"n":"Esposito Omar","t":"Giaffa Clusane","g":2,"p":"D","r":86,"y":1,"rc":0,"d":0.87,"src":"manuale"},{"n":"Mazzotti Andrea","t":"Real Coccaglio","g":2,"p":"D","r":80,"y":0,"rc":0,"d":1.0,"src":"manuale"},{"n":"Gavazzeni Stefano","t":"Sangiu United","g":2,"p":"C","r":67,"y":0,"rc":0,"d":1.0,"src":"pdf"},{"n":"Rivoltella Andrea","t":"S.g.b. Iseo","g":2,"p":"D","r":78,"y":0,"rc":0,"d":1.0,"src":"manuale"},{"n":"Zaharia Marius","t":"Sangiu United","g":2,"p":"C","r":67,"y":0,"rc":0,"d":1.0,"src":"pdf"},{"n":"Belotti Edoardo","t":"Sangiu United","g":2,"p":"C","r":67,"y":0,"rc":0,"d":1.0,"src":"pdf"},{"n":"Delbono Edoardo","t":"Real Coccaglio","g":2,"p":"D","r":81,"y":0,"rc":0,"d":1.0,"src":"manuale"},{"n":"Mazza Mirco","t":"Gso Gabbiani","g":2,"p":"A","r":67,"y":0,"rc":0,"d":1.0,"src":"pdf"},{"n":"Piccinelli Andrea","t":"Anonimo Pub","g":2,"p":"C","r":68,"y":0,"rc":0,"d":1.0,"src":"pdf"},{"n":"Zanotti Nicola","t":"Gso Capriolo","g":2,"p":"D","r":65,"y":2,"rc":0,"d":0.74,"src":"pdf"},{"n":"Suardi Luca","t":"Gso Capriolo","g":2,"p":"D","r":64,"y":0,"rc":1,"d":0.5},{"n":"Riva Nicolas","t":"Anonimo Pub","g":2,"p":"D","r":77,"y":0,"rc":0,"d":1.0,"src":"manuale"},{"n":"Galezzi Claudio","t":"Gso Gabbiani","g":2,"p":"C","r":67,"y":0,"rc":0,"d":1.0,"src":"pdf"},{"n":"Cubolino Gabriele","t":"Paratico Blue","g":2,"p":"C","r":69,"y":0,"rc":0,"d":1.0,"src":"pdf"},{"n":"Thomas Chinelli","t":"Sangiu United","g":2,"p":"D","r":67,"y":0,"rc":0,"d":1.0,"src":"pdf"},{"n":"Corsini Matteo","t":"Nigoline","g":2,"p":"C","r":67,"y":0,"rc":0,"d":1.0,"src":"pdf"},{"n":"Mingotti Luca","t":"Nigoline","g":2,"p":"D","r":77,"y":0,"rc":0,"d":1.0,"src":"manuale"},{"n":"Viviani Cristian","t":"Softmetal","g":2,"p":"D","r":75,"y":0,"rc":0,"d":1.0,"src":"manuale"},{"n":"Schembri Giovanni","t":"Gso Capriolo","g":1,"p":"C","r":63,"y":0,"rc":0,"d":1.0,"src":"pdf"},{"n":"Bono Matteo","t":"Gso Capriolo","g":1,"p":"C","r":63,"y":0,"rc":0,"d":1.0,"src":"pdf"},{"n":"Christopher Moreno","t":"Giaffa Clusane","g":1,"p":"D","r":85,"y":2,"rc":1,"d":0.24,"src":"manuale"},{"n":"Pedersoli Davide","t":"Gso Capriolo","g":1,"p":"A","r":63,"y":0,"rc":0,"d":1.0,"src":"pdf"},{"n":"Cori Davide","t":"S.g.b. Iseo","g":1,"p":"C","r":75,"y":0,"rc":0,"d":1.0,"src":"manuale"},{"n":"Liguoro Andrea","t":"Anonimo Pub","g":1,"p":"A","r":66,"y":0,"rc":0,"d":1.0,"src":"pdf"},{"n":"Tota Giordano","t":"Nigoline","g":1,"p":"D","r":74,"y":0,"rc":0,"d":1.0,"src":"manuale"},{"n":"Dozza Giorgio","t":"Sangiu United","g":1,"p":"C","r":65,"y":0,"rc":0,"d":1.0,"src":"pdf"},{"n":"Ranghetti Nicola","t":"Sangiu United","g":1,"p":"C","r":65,"y":0,"rc":0,"d":1.0,"src":"pdf"},{"n":"Plebani Maurizio","t":"Gso Gabbiani","g":1,"p":"D","r":65,"y":0,"rc":0,"d":1.0,"src":"pdf"},{"n":"Metelli Nicola","t":"Gso Lions","g":1,"p":"C","r":77,"y":0,"rc":0,"d":1.0,"src":"manuale"},{"n":"Turla Emanuele","t":"Paratico Blue","g":1,"p":"D","r":79,"y":0,"rc":0,"d":1.0,"src":"manuale"},{"n":"Novali Alessandro","t":"Sangiu United","g":1,"p":"D","r":65,"y":0,"rc":0,"d":1.0,"src":"pdf"},{"n":"Bosetti Matteo","t":"Atletico Sr","g":1,"p":"D","r":80,"y":0,"rc":0,"d":1.0,"src":"manuale"},{"n":"Kandji Mademba","t":"S.g.b. Iseo","g":1,"p":"C","r":75,"y":0,"rc":0,"d":1.0,"src":"manuale"},{"n":"Bosetti Sergio","t":"Sangiu United","g":1,"p":"D","r":65,"y":0,"rc":0,"d":1.0,"src":"pdf"},{"n":"Ariotti Nicola","t":"Sangiu United","g":1,"p":"D","r":65,"y":0,"rc":0,"d":1.0,"src":"pdf"},{"n":"Cristini David","t":"Giaffa Clusane","g":1,"p":"C","r":75,"y":4,"rc":0,"d":0.49,"src":"manuale"},{"n":"Pagani Filippo","t":"Atletico Sr","g":1,"p":"A","r":66,"y":0,"rc":0,"d":1.0,"src":"pdf"},{"n":"Gentile Marco","t":"Atletico Sr","g":1,"p":"D","r":78,"y":0,"rc":0,"d":1.0,"src":"manuale"},{"n":"Comotti Fabrizio","t":"Gso Gabbiani","g":1,"p":"D","r":65,"y":0,"rc":0,"d":1.0,"src":"pdf"},{"n":"Cavallini Francesco","t":"Real Coccaglio","g":1,"p":"C","r":67,"y":0,"rc":0,"d":1.0,"src":"pdf"},{"n":"Bertazzoli Alessandro","t":"S.g.b. Iseo","g":1,"p":"D","r":76,"y":0,"rc":0,"d":1.0,"src":"manuale"},{"n":"Bogachev Konstantin","t":"Gso Capriolo","g":1,"p":"C","r":63,"y":0,"rc":0,"d":1.0,"src":"pdf"},{"n":"Castellini Nicholas","t":"Gso Lions","g":1,"p":"D","r":77,"y":0,"rc":0,"d":1.0,"src":"manuale"},{"n":"Mandelli Mirko","t":"Nigoline","g":1,"p":"A","r":65,"y":0,"rc":0,"d":1.0,"src":"pdf"},{"n":"Bezzi Alessandro","t":"Giaffa Clusane","g":1,"p":"C","r":77,"y":0,"rc":0,"d":1.0,"src":"manuale"},{"n":"Costa Andrea","t":"Paratico Blue","g":1,"p":"D","r":78,"y":0,"rc":0,"d":1.0,"src":"manuale"},{"n":"Grassi Tommaso","t":"Atletico Sr","g":1,"p":"D","r":78,"y":0,"rc":0,"d":1.0,"src":"manuale"},{"n":"Morotti Nicola","t":"Paratico Blue","g":1,"p":"D","r":77,"y":0,"rc":0,"d":1.0,"src":"manuale"},{"n":"Castiglia Luca","t":"S.g.b. Iseo","g":0,"p":"D","r":59,"y":2,"rc":0,"d":0.74},{"n":"Giacomoni Matteo","t":"Giaffa Clusane","g":0,"p":"D","r":76,"y":1,"rc":1,"d":0.37,"src":"manuale"},{"n":"Fedeli Simone","t":"Giaffa Clusane","g":0,"p":"D","r":80,"y":1,"rc":0,"d":0.87,"src":"manuale"},{"n":"Giovanardi Manuel","t":"S.g.b. Iseo","g":0,"p":"D","r":75,"y":1,"rc":0,"d":0.87,"src":"manuale"},{"n":"Malzani Davide","t":"Gso Capriolo","g":0,"p":"D","r":58,"y":1,"rc":0,"d":0.87},{"n":"Riva Nicholas","t":"Anonimo Pub","g":0,"p":"D","r":61,"y":0,"rc":0,"d":1.0},{"n":"Torri Luca","t":"Anonimo Pub","g":0,"p":"D","r":61,"y":0,"rc":0,"d":1.0},{"n":"Staffoni Matteo","t":"Anonimo Pub","g":0,"p":"C","r":61,"y":0,"rc":0,"d":1.0},{"n":"Facchi Matteo","t":"Atletico Sr","g":0,"p":"D","r":60,"y":0,"rc":0,"d":1.0},{"n":"Lieto Luigi","t":"Atletico Sr","g":0,"p":"D","r":60,"y":0,"rc":0,"d":1.0},{"n":"Morandi William","t":"Atletico Sr","g":0,"p":"D","r":60,"y":0,"rc":0,"d":1.0},{"n":"Mottini Nicholas","t":"Atletico Sr","g":0,"p":"D","r":60,"y":0,"rc":0,"d":1.0},{"n":"Archetti Andrea","t":"Atletico Sr","g":0,"p":"C","r":60,"y":0,"rc":0,"d":1.0},{"n":"Malzani Davide (ATL)","t":"Atletico Sr","g":0,"p":"C","r":60,"y":0,"rc":0,"d":1.0},{"n":"Morandi Leonardo","t":"Atletico Sr","g":0,"p":"C","r":60,"y":0,"rc":0,"d":1.0},{"n":"Palmieri Iuriy","t":"Atletico Sr","g":0,"p":"C","r":60,"y":0,"rc":0,"d":1.0},{"n":"Plebani Edoardo","t":"Atletico Sr","g":0,"p":"C","r":60,"y":0,"rc":0,"d":1.0},{"n":"Zilioli Alessandro","t":"Atletico Sr","g":0,"p":"C","r":60,"y":0,"rc":0,"d":1.0},{"n":"Bardi Francesco","t":"Atletico Sr","g":0,"p":"A","r":60,"y":0,"rc":0,"d":1.0},{"n":"Pedrali Andrea","t":"Atletico Sr","g":0,"p":"A","r":60,"y":0,"rc":0,"d":1.0},{"n":"Bettoni Andrea","t":"Gso Capriolo","g":0,"p":"D","r":58,"y":0,"rc":0,"d":1.0},{"n":"Tommesani Liam","t":"Gso Capriolo","g":0,"p":"D","r":58,"y":0,"rc":0,"d":1.0},{"n":"Leporati Matteo","t":"Gso Capriolo","g":0,"p":"D","r":58,"y":0,"rc":0,"d":1.0},{"n":"Struga Paolo","t":"Gso Capriolo","g":0,"p":"A","r":58,"y":0,"rc":0,"d":1.0},{"n":"Rebecchi Michele","t":"Gso Gabbiani","g":0,"p":"D","r":60,"y":0,"rc":0,"d":1.0},{"n":"Diagne Mouhamed Habib","t":"Gso Gabbiani","g":0,"p":"C","r":60,"y":0,"rc":0,"d":1.0},{"n":"Stefini Alessandro","t":"Giaffa Clusane","g":0,"p":"C","r":62,"y":0,"rc":0,"d":1.0},{"n":"Archetti Alessandro","t":"Giaffa Clusane","g":0,"p":"C","r":62,"y":0,"rc":0,"d":1.0},{"n":"Faccoli Manuel","t":"Giaffa Clusane","g":0,"p":"A","r":62,"y":0,"rc":0,"d":1.0},{"n":"Parzani Filippo","t":"Giaffa Clusane","g":0,"p":"A","r":62,"y":0,"rc":0,"d":1.0},{"n":"Bracchi Maurizio","t":"Gso Lions","g":0,"p":"D","r":61,"y":0,"rc":0,"d":1.0},{"n":"Russo Leonardo","t":"Gso Lions","g":0,"p":"D","r":61,"y":0,"rc":0,"d":1.0},{"n":"Sartori Luca","t":"Gso Lions","g":0,"p":"C","r":61,"y":0,"rc":0,"d":1.0},{"n":"Bani Federico","t":"Nigoline","g":0,"p":"D","r":59,"y":0,"rc":0,"d":1.0},{"n":"Bolis Alessio","t":"Nigoline","g":0,"p":"D","r":59,"y":0,"rc":0,"d":1.0},{"n":"Scubla Fabio","t":"Nigoline","g":0,"p":"D","r":59,"y":0,"rc":0,"d":1.0},{"n":"Corsini Alberto","t":"Nigoline","g":0,"p":"C","r":59,"y":0,"rc":0,"d":1.0},{"n":"Ghezzi Riccardo","t":"Nigoline","g":0,"p":"C","r":59,"y":0,"rc":0,"d":1.0},{"n":"Parzani Marco","t":"Nigoline","g":0,"p":"C","r":59,"y":0,"rc":0,"d":1.0},{"n":"Santoro Antonio","t":"Nigoline","g":0,"p":"C","r":59,"y":0,"rc":0,"d":1.0},{"n":"Bolis Nicola","t":"Nigoline","g":0,"p":"A","r":59,"y":0,"rc":0,"d":1.0},{"n":"Del Pozzo Fabio","t":"Nigoline","g":0,"p":"A","r":59,"y":0,"rc":0,"d":1.0},{"n":"Esposito Salvatore","t":"Paratico Blue","g":0,"p":"D","r":61,"y":0,"rc":0,"d":1.0},{"n":"Prapullari Stivi","t":"Paratico Blue","g":0,"p":"D","r":61,"y":0,"rc":0,"d":1.0},{"n":"Bertazzoli Simone","t":"Paratico Blue","g":0,"p":"A","r":61,"y":0,"rc":0,"d":1.0},{"n":"Galante Bruno","t":"Paratico Blue","g":0,"p":"A","r":61,"y":0,"rc":0,"d":1.0},{"n":"Goncalves Luca","t":"Paratico Blue","g":0,"p":"A","r":61,"y":0,"rc":0,"d":1.0},{"n":"Danesi Simone","t":"Real Coccaglio","g":0,"p":"D","r":70,"y":0,"rc":0,"d":1.0,"src":"manuale"},{"n":"Lonati Andrea","t":"Real Coccaglio","g":0,"p":"D","r":70,"y":0,"rc":0,"d":1.0,"src":"manuale"},{"n":"Ghitti Leonardo","t":"Real Coccaglio","g":0,"p":"C","r":62,"y":0,"rc":0,"d":1.0},{"n":"Medeghini Raffaele","t":"Real Coccaglio","g":0,"p":"C","r":62,"y":0,"rc":0,"d":1.0},{"n":"Pedrali Michele","t":"Real Coccaglio","g":0,"p":"C","r":62,"y":0,"rc":0,"d":1.0},{"n":"Fratus Federico","t":"Real Coccaglio","g":0,"p":"A","r":62,"y":0,"rc":0,"d":1.0},{"n":"Loda Marco","t":"Real Coccaglio","g":0,"p":"A","r":62,"y":0,"rc":0,"d":1.0},{"n":"Archetti Nicola","t":"S.g.b. Iseo","g":0,"p":"D","r":75,"y":0,"rc":0,"d":1.0,"src":"manuale"},{"n":"Fedeli Fabio","t":"S.g.b. Iseo","g":0,"p":"D","r":75,"y":0,"rc":0,"d":1.0,"src":"manuale"},{"n":"Maggi Daniele","t":"S.g.b. Iseo","g":0,"p":"D","r":60,"y":0,"rc":0,"d":1.0},{"n":"Turla Stefano","t":"S.g.b. Iseo","g":0,"p":"D","r":60,"y":0,"rc":0,"d":1.0},{"n":"Zani Luca","t":"S.g.b. Iseo","g":0,"p":"D","r":60,"y":0,"rc":0,"d":1.0},{"n":"Arcaini Antonio","t":"S.g.b. Iseo","g":0,"p":"C","r":60,"y":0,"rc":0,"d":1.0},{"n":"Baitelli Alessandro","t":"S.g.b. Iseo","g":0,"p":"C","r":60,"y":0,"rc":0,"d":1.0},{"n":"Gilberto Mattia","t":"S.g.b. Iseo","g":0,"p":"C","r":60,"y":0,"rc":0,"d":1.0},{"n":"Bocchi Matteo","t":"Softmetal","g":0,"p":"D","r":60,"y":0,"rc":0,"d":1.0},{"n":"Damnotti Cristopher","t":"Softmetal","g":0,"p":"D","r":60,"y":0,"rc":0,"d":1.0},{"n":"Seneci Edoardo","t":"Softmetal","g":0,"p":"D","r":60,"y":0,"rc":0,"d":1.0},{"n":"Brevi Marco","t":"Softmetal","g":0,"p":"C","r":60,"y":0,"rc":0,"d":1.0},{"n":"El Arif Ilyas","t":"Sangiu United","g":0,"p":"C","r":60,"y":0,"rc":0,"d":1.0},{"n":"Lancini Andrea","t":"Sangiu United","g":0,"p":"D","r":60,"y":0,"rc":0,"d":1.0},{"n":"Magri Giorgio","t":"Sangiu United","g":0,"p":"A","r":60,"y":0,"rc":0,"d":1.0},{"n":"Bonomelli Luca","t":"Anonimo Pub","g":0,"p":"P","r":85,"y":0,"rc":0,"d":1.0},{"n":"Marella Stefano","t":"Atletico Sr","g":0,"p":"P","r":83,"y":0,"rc":0,"d":1.0,"b":"1989-05-13"},{"n":"Gatti Enrico","t":"Giaffa Clusane","g":0,"p":"P","r":85,"y":0,"rc":0,"d":1.0,"b":"2000-05-24"},{"n":"Bioh Nicholas","t":"Gso Capriolo","g":0,"p":"P","r":62,"y":0,"rc":0,"d":1.0,"b":"2004-09-08"},{"n":"Muratori Alessandro","t":"Gso Gabbiani","g":1,"p":"P","r":82,"y":0,"rc":0,"d":1.0},{"n":"Boioni Nicholas","t":"Gso Lions","g":0,"p":"P","r":86,"y":0,"rc":0,"d":1.0},{"n":"Martinelli Cristian","t":"Nigoline","g":0,"p":"P","r":73,"y":0,"rc":0,"d":1.0},{"n":"Pizziol Matteo","t":"Paratico Blue","g":0,"p":"P","r":80,"y":0,"rc":0,"d":1.0},{"n":"Maffi Michele","t":"Real Coccaglio","g":0,"p":"P","r":82,"y":1,"rc":0,"d":0.87,"b":"2001-04-07"},{"n":"D'Anna Stefano","t":"S.g.b. Iseo","g":0,"p":"P","r":82,"y":0,"rc":0,"d":1.0,"b":"1997-01-07"},{"n":"Martino Alessandro","t":"Sangiu United","g":0,"p":"P","r":74,"y":0,"rc":0,"d":1.0},{"n":"Rodenghi Alessio","t":"Softmetal","g":0,"p":"P","r":80,"y":0,"rc":0,"d":1.0,"b":"2003-11-10"},{"n":"Notari Mattia","t":"Implast","g":1,"p":"D","r":94,"y":1,"rc":1,"d":0.37,"pres":19,"src":"attr"},{"n":"Iore Stefano","t":"Implast","g":10,"p":"A","r":83,"y":0,"rc":0,"d":1.0,"pres":0,"src":"attr","new":1,"off":1},{"n":"Fra Nicholas","t":"Implast","g":12,"p":"C","r":89,"y":0,"rc":0,"d":1.0,"pres":24,"src":"attr"},{"n":"Bardi Federico","t":"Implast","g":0,"p":"D","r":79,"y":0,"rc":0,"d":1.0,"pres":0,"src":"attr","new":1,"off":1},{"n":"Alvarez Arnaldo","t":"Implast","g":0,"p":"A","r":77,"y":0,"rc":0,"d":1.0,"pres":0,"src":"attr","new":1,"off":1},{"n":"Vezzoli Emanuele","t":"Implast","g":5,"p":"C","r":84,"y":0,"rc":0,"d":1.0,"pres":23,"src":"attr"},{"n":"Simoni Nicola","t":"Implast","g":1,"p":"P","r":88,"y":0,"rc":0,"d":1.0,"pres":9,"src":"attr"},{"n":"Facchi Lorenzo","t":"Implast","g":14,"p":"A","r":87,"y":2,"rc":1,"d":0.24,"pres":23,"src":"attr"},{"n":"Paderno Marco","t":"Implast","g":0,"p":"P","r":87,"y":0,"rc":0,"d":1.0,"pres":19,"src":"attr"},{"n":"Regazzoni Lorenzo","t":"Implast","g":0,"p":"P","r":87,"y":0,"rc":0,"d":1.0,"pres":6,"src":"attr"},{"n":"Turla Lorenzo","t":"Implast","g":4,"p":"D","r":82,"y":1,"rc":0,"d":0.87,"pres":20,"src":"attr"},{"n":"Vavassori Emilio","t":"Implast","g":4,"p":"A","r":77,"y":1,"rc":0,"d":0.87,"pres":17,"src":"attr"},{"n":"Menassi Giorgio","t":"Implast","g":10,"p":"C","r":80,"y":0,"rc":0,"d":1.0,"pres":20,"src":"attr"},{"n":"Santinelli Alessandro","t":"Implast","g":3,"p":"D","r":80,"y":0,"rc":0,"d":1.0,"pres":20,"src":"attr"},{"n":"Brescianini Matteo","t":"Implast","g":0,"p":"D","r":75,"y":1,"rc":0,"d":0.87,"pres":9,"src":"attr"},{"n":"Laudani Salvatore","t":"Implast","g":1,"p":"A","r":75,"y":1,"rc":0,"d":0.87,"pres":14,"src":"attr"},{"n":"Mingotti Davide","t":"Implast","g":1,"p":"A","r":73,"y":0,"rc":0,"d":1.0,"pres":8,"src":"attr"},{"n":"Bonardi Stefano","t":"Implast","g":5,"p":"C","r":77,"y":2,"rc":0,"d":0.74,"pres":21,"src":"attr"}]};
+/* URL del web app di Google Apps Script per la classifica condivisa.
+   Finche' resta questo placeholder, la funzione online e' disattivata
+   e il gioco funziona esattamente come prima, tutto in locale. */
+const SHEET_URL = 'INCOLLA_QUI_LO_URL';
+const GOSSIP = ["[G] ha dimenticato le scarpe da calcio e si è presentato all'allenamento con quelle da ginnastica.", "[G] è diventato virale su TikTok per un video completamente imbarazzante.", "[G] ha accidentalmente messo like a una foto del 2016.", "[G] è stato visto al supermercato mentre faceva la spesa alle 2 di notte.", "[G] ha ricevuto un'offerta di trasferimento. Il problema è che proveniva da una squadra che non esiste.", "[G] ha pubblicato una storia Instagram con la scritta \"Focus\". Cinque minuti dopo era online a giocare a FIFA.", "[G] ha perso le chiavi della macchina. Erano nella sua mano.", "[G] è stato intervistato da un giornalista che ha pronunciato il suo nome completamente sbagliato.", "[G] ha ricevuto un autografo da un bambino che lo considera il suo idolo.", "[G] ha aperto un podcast sulla sua carriera. È durato 11 minuti.", "[G] ha chiesto al mister di giocare in un ruolo completamente diverso.", "[G] ha esultato davanti alla telecamera sbagliata.", "[G] ha incontrato per caso un ex compagno di squadra in vacanza.", "[G] è stato accostato a un top club sui social. Il club non ha mai sentito parlare di lui.", "[G] ha pubblicato una foto con una didascalia motivazionale. Nessuno ha capito cosa significasse.", "[G] ha dimenticato il PIN della propria carta di credito.", "[G] ha ricevuto 10.000 nuovi follower in un giorno. Nessuno sa perché.", "[G] ha chiesto al magazziniere di personalizzare le sue scarpe.", "[G] è stato protagonista di un meme diventato virale.", "[G] ha dichiarato di essere \"concentrato solo sulla prossima partita\". Ha poi parlato per 20 minuti del mercato.", "[G] è stato avvistato in un fast food poche ore prima della partita.", "[G] ha ricevuto un messaggio da un numero sconosciuto. Era sua madre.", "[G] ha festeggiato un gol togliendosi la maglia. Aveva dimenticato di essere già ammonito.", "[G] ha perso una scommessa con un compagno e ha dovuto presentarsi all'allenamento con un look improbabile.", "[G] ha chiesto al mister se poteva battere una punizione. Il mister ha riso.", "[G] ha firmato un autografo su un oggetto completamente assurdo.", "[G] ha ricevuto una proposta pubblicitaria per un prodotto che non usa.", "[G] ha scoperto di avere un sosia molto famoso.", "[G] è stato fotografato mentre dormiva sul pullman della squadra.", "[G] ha dimenticato in quale hotel alloggiasse la squadra.", "[G] ha organizzato una festa di compleanno a sorpresa. La sorpresa era per lui.", "[G] ha cambiato numero di telefono e ha dimenticato di comunicarlo all'agente.", "[G] ha ricevuto un'offerta di sponsorizzazione per vendere qualcosa che non sa nemmeno usare.", "[G] ha iniziato a seguire una squadra rivale su Instagram. I tifosi hanno perso la testa.", "[G] ha smesso di seguire una squadra rivale su Instagram. I tifosi hanno perso ancora di più la testa.", "[G] ha fatto una diretta Instagram vista da appena 6 persone.", "[G] ha accidentalmente pubblicato una foto destinata alla chat privata della squadra.", "[G] ha ricevuto una telefonata da un ex campione del mondo.", "[G] ha incontrato un tifoso che conosceva più statistiche su di lui di quante ne conoscesse lui stesso.", "[G] è stato definito \"il nuovo Messi\" da un account con 12 follower.", "[G] ha ricevuto una recensione di una stella su Google. Non si sa perché.", "[G] ha ordinato una pizza usando il nome di un compagno.", "[G] ha trovato una sua figurina in vendita online a un prezzo assurdo.", "[G] ha ricevuto una telefonata dal proprio agente mentre era in bagno.", "[G] ha dimenticato dove aveva parcheggiato la macchina.", "[G] è stato fermato per strada da un tifoso che gli ha chiesto il risultato della prossima partita.", "[G] ha scoperto che il suo nome era stato scritto male sulla maglia.", "[G] ha ricevuto una multa per un motivo completamente assurdo.", "[G] ha partecipato a un quiz televisivo e ha sbagliato una domanda sul calcio.", "[G] ha dichiarato di non sapere cucinare. Ha bruciato anche l'acqua.", "[G] è stato fotografato mentre usciva da un locale alle 6:47 del mattino. Ha dichiarato di essere andato lì per comprare un panino.", "[G] ha perso una scommessa e ora deve presentarsi al prossimo allenamento vestito da mascotte.", "[G] ha scommesso 50€ sul risultato della propria partita. Ha scommesso sulla propria squadra. Il mister non è contento.", "[G] ha dichiarato di aver bevuto solo \"un bicchiere\". Nessuno ha specificato la dimensione del bicchiere.", "[G] è stato avvistato in un casinò. Ha dichiarato di essere entrato solo per usare il bagno.", "[G] ha perso una partita a poker contro il magazziniere. Ora deve lavare le divise per un mese.", "[G] ha organizzato una serata tranquilla con i compagni. La polizia ha una versione diversa.", "[G] ha messo una storia alle 4:32 del mattino con la scritta \"Notte tranquilla\".", "[G] ha ricevuto un messaggio misterioso alle 3 di notte. Ha risposto: \"Non dirlo a nessuno\".", "[G] è stato visto entrare in un hotel a cinque stelle. È uscito 12 minuti dopo con una pizza.", "[G] ha dichiarato di essere felicemente single. Cinque minuti dopo ha smesso di seguire 37 persone su Instagram.", "[G] ha accidentalmente inviato un cuore rosso nella chat della squadra. Il destinatario era il mister.", "[G] ha ricevuto un invito a cena da una persona misteriosa. Il mister ha chiesto spiegazioni. Anche il mister era curioso.", "[G] ha detto di essere andato a letto presto. Alle 3:14 era online su Instagram.", "[G] è stato fotografato con una misteriosa bionda. Era sua cugina. Ora tutta la famiglia è arrabbiata.", "[G] ha iniziato a frequentare una persona misteriosa. Il suo compagno di squadra l'ha già identificata.", "[G] ha cancellato una storia Instagram dopo 12 secondi. Troppo tardi: 47 persone hanno fatto screenshot.", "[G] ha ricevuto un messaggio dalla propria ex durante una partita. Ha chiesto il cambio per rispondere.", "[G] ha dichiarato: \"Non ho nulla da nascondere\". Cinque minuti dopo ha nascosto il telefono.", "[G] ha perso una scommessa e ora deve indossare una maglia con scritto \"IO NON CAPISCO NULLA DI CALCIO\".", "[G] ha puntato 10€ su una partita completamente casuale. Ha vinto. Ora si considera un esperto di finanza.", "[G] ha scommesso su 14 partite contemporaneamente. Una era una partita di calcio femminile in Mongolia.", "[G] ha provato a spiegare una multipla da 27 eventi. Il compagno si è addormentato.", "[G] ha vinto una scommessa impossibile. Ora vuole lasciare il calcio e aprire un'agenzia di betting.", "[G] ha perso una multipla all'ultimo minuto. Ha dichiarato che il calcio è uno sport corrotto.", "[G] ha scommesso che avrebbe segnato. Non ha giocato.", "[G] ha scommesso sul numero di cartellini della partita. Ha ricevuto un cartellino prima ancora del fischio d'inizio.", "[G] ha festeggiato una vincita al casinò. La vincita era di 7€.", "[G] ha perso una partita a blackjack contro il proprio fisioterapista.", "[G] ha dichiarato di aver smesso di giocare d'azzardo. Poco dopo ha chiesto al compagno se conosceva un buon sito di scommesse.", "[G] è arrivato all'allenamento con gli occhiali da sole. Erano le 8:15 del mattino.", "[G] ha detto di essere \"in condizioni perfette\". Poi ha chiesto dove fosse il bagno.", "[G] ha confuso il ritrovo della squadra con quello di un matrimonio.", "[G] ha passato tutta la notte a cantare al karaoke. La squadra ha vietato di riprodurre i video.", "[G] ha promesso di offrire da bere a tutta la squadra. Ora sta cercando di trasferirsi in un altro paese.", "[G] ha ordinato una bottiglia costosissima al ristorante. Era analcolica.", "[G] ha detto \"stasera non bevo\". È stato visto con un bicchiere in mano 11 minuti dopo.", "[G] ha raccontato una storia della serata precedente. Tre compagni hanno confermato che era completamente falsa.", "[G] ha perso il telefono durante una festa. È stato trovato nel frigorifero.", "[G] ha mandato un vocale di 8 minuti alla chat della squadra. Nessuno ha avuto il coraggio di ascoltarlo.", "[G] ha cancellato accidentalmente tutta la cronologia delle chat. Il suo agente è molto preoccupato.", "[G] ha ricevuto una proposta di matrimonio durante una cena. Non era rivolta a lui.", "[G] ha dichiarato di essere innamorato. Non ha voluto rivelare di chi. Il gruppo WhatsApp della squadra ha 73 teorie.", "[G] ha cambiato improvvisamente il proprio status sentimentale sui social. Il mercato dei gossip è impazzito.", "[G] ha pubblicato una foto romantica. Dopo 30 secondi l'ha cancellata. Dopo 31 secondi era già su tutti i giornali.", "[G] ha ricevuto un regalo misterioso nella propria stanza d'albergo. Nessuno sa da chi provenga.", "[G] ha dichiarato di essere stato \"frainteso dai media\". Nessuno aveva ancora parlato di lui.", "[G] è stato fotografato mentre usciva da una festa privata. Ha dichiarato di essere stato lì \"per errore\".", "[G] ha promesso alla squadra una serata indimenticabile. Il giorno dopo nessuno ricorda cosa sia successo.", "[G] è diventato protagonista del gossip più assurdo della settimana. Il problema è che nessuno sa esattamente quale sia il gossip.", "[G] ha messo \"Like\" a un post del nuovo club. I tifosi lo considerano un annuncio ufficiale.", "[G] ha iniziato a seguire un club straniero. Il giorno dopo è stato accostato a 17 squadre.", "[G] ha smesso di seguire il proprio club. Il mercato è ufficialmente impazzito.", "[G] ha dichiarato di essere \"felice dove si trova\". Il suo agente ha rilasciato un'intervista di 45 minuti sul futuro.", "[G] è stato fotografato vicino a un aeroporto. Secondo i giornali, sta per trasferirsi. Stava andando in vacanza.", "[G] ha incontrato il suo agente in un ristorante. Secondo i giornali, sta per firmare per tre club contemporaneamente.", "[G] ha pubblicato una foto con la maglia del club. I tifosi hanno analizzato lo sfondo per trovare indizi sul mercato.", "[G] è stato accostato a un top club. Il suo agente ha risposto: \"Mai dire mai\". Il club ha risposto: \"Mai.\"", "[G] ha firmato un contratto. Il suo agente ha chiesto una commissione. Il club ha chiesto l'intervento dell'ONU.", "[G] ha ricevuto una telefonata dal direttore sportivo. Ha risposto: \"Scusi, chi è?\"", "[G] ha pubblicato una foto in bianco e nero. I tifosi temono che stia per annunciare il ritiro.", "[G] ha scritto \"Soon...\" su Instagram. Nessuno sa cosa significhi, nemmeno lui.", "[G] ha cancellato una foto. I tifosi hanno organizzato una conferenza stampa.", "[G] ha cambiato la foto profilo. Il mercato è ufficialmente aperto.", "[G] ha messo un like a un tweet del 2019. Il suo agente ha già ricevuto 37 telefonate.", "[G] ha pubblicato una foto con un compagno. I tifosi hanno iniziato a discutere su chi sia il vero migliore.", "[G] ha scritto \"Family ❤️\". Nessuno sa se si riferisca alla squadra, alla famiglia o a una pizzeria.", "[G] ha pubblicato una storia alle 3:17. Il mister l'ha vista.", "[G] ha accidentalmente condiviso una storia del club rivale.", "[G] ha fatto una diretta Instagram. Il primo commento è stato: \"Mister, perché non gioco?\"", "[G] ha risposto \"No comment\". I giornali hanno pubblicato 14 articoli.", "[G] ha detto \"Non sono qui per parlare del mio futuro\". Ha parlato del suo futuro per 17 minuti.", "[G] ha dichiarato: \"Pensiamo partita dopo partita\". Il giornalista ha spento il microfono.", "[G] ha detto che la squadra è \"una famiglia\". Il giorno dopo ha litigato con metà spogliatoio.", "[G] ha detto che \"il gruppo viene prima di tutto\". Il suo agente ha chiesto un aumento.", "[G] ha risposto a una domanda con una frase motivazionale trovata su Google.", "[G] ha detto \"Sono concentrato sul calcio\". Il suo profilo Instagram racconta una storia diversa.", "[G] ha dichiarato di non leggere i giornali. Ha poi commentato un articolo pubblicato 4 minuti prima.", "[G] ha detto che non guarda i social. Ha 14.000 like nell'ultima ora.", "[G] ha detto \"Non ho nulla da dimostrare\". Ha segnato un gol e ha indicato il suo nome sulla maglia.", "[G] è arrivato all'allenamento con 17 minuti di ritardo. Ha dato la colpa al traffico. Era uscito di casa 18 minuti prima.", "[G] ha dimenticato la borsa. Ha dovuto allenarsi con la maglia del portiere.", "[G] ha dimenticato le scarpe. Il magazziniere gli ha dato quelle di un compagno. Due numeri più piccole.", "[G] ha chiesto al mister se l'allenamento fosse obbligatorio.", "[G] ha fatto una foto durante l'allenamento. Il mister ha chiesto chi gli avesse dato il permesso.", "[G] ha saltato l'allenamento per \"motivi personali\". I compagni lo hanno trovato al centro commerciale.", "[G] ha chiesto un giorno libero per il compleanno del cane.", "[G] ha chiesto di allenarsi da solo. Dopo 12 minuti ha chiesto compagnia.", "[G] ha perso una sfida di velocità contro il fisioterapista.", "[G] ha chiesto al preparatore atletico se poteva saltare il riscaldamento perché \"era già caldo\".", "[G] ha perso il volo della squadra perché stava facendo shopping al duty free.", "[G] ha dimenticato il passaporto.", "[G] è salito sull'autobus sbagliato. Ha scoperto l'errore dopo 40 minuti.", "[G] ha chiesto alla squadra di aspettarlo. Era ancora a casa.", "[G] ha dormito durante tutto il viaggio. Si è svegliato pensando di essere arrivato.", "[G] ha prenotato una camera d'albergo. Ha dimenticato in quale hotel.", "[G] ha ordinato il servizio in camera. Ha chiesto di portarlo nella stanza sbagliata.", "[G] ha perso il cellulare durante la trasferta. Era nella tasca posteriore.", "[G] ha portato in viaggio una valigia completamente vuota.", "[G] ha chiesto se la trasferta fosse internazionale. Si giocava a 12 km dal centro sportivo.", "[G] ha organizzato una festa \"tranquilla\". Il vicino ha chiamato la polizia.", "[G] ha detto che sarebbe rimasto a casa. È stato taggato in una storia alle 4:56.", "[G] ha promesso di non bere. Ha ordinato una bottiglia di acqua frizzante.", "[G] ha festeggiato fino all'alba. Alle 9:00 aveva allenamento.", "[G] ha perso il telefono durante una festa. È stato ritrovato nel congelatore.", "[G] ha ballato così tanto che il DJ gli ha chiesto di fermarsi.", "[G] ha offerto da bere a tutti. Ora sta vendendo la macchina.", "[G] è stato fotografato mentre usciva da un locale. La foto è stata scattata alle 18:03.", "[G] ha detto di essere andato a letto presto. Ha pubblicato una storia alle 5:41.", "[G] ha partecipato a una festa in maschera. Nessuno lo ha riconosciuto. Nemmeno i compagni.", "[G] ha perso una scommessa contro il massaggiatore. Ora deve portargli il caffè per un mese.", "[G] ha fatto una multipla da 18 partite. Ne ha indovinate 17.", "[G] ha scommesso sulla propria squadra. Il mister lo ha convocato per un colloquio.", "[G] ha puntato 5€ su una partita e ha vinto 4,80€. Ha festeggiato come se avesse vinto la Champions.", "[G] ha perso una partita a poker contro il magazziniere.", "[G] ha dichiarato di aver smesso con le scommesse. Ha poi chiesto il risultato di una partita della seconda divisione islandese.", "[G] ha giocato alla roulette. Ha puntato sul numero della propria maglia.", "[G] ha scommesso sul numero di corner. Ora considera il calcio un investimento finanziario.", "[G] ha perso una multipla all'ultimo secondo. Ha smesso di parlare per 36 ore.", "[G] ha vinto una scommessa impossibile. Ora dà consigli finanziari ai compagni.", "[G] ha cambiato lo stato sentimentale sui social. Il gruppo WhatsApp della squadra è esploso.", "[G] è stato fotografato a cena con una persona misteriosa. Era il suo commercialista.", "[G] ha ricevuto un regalo anonimo. Il mittente era il suo agente.", "[G] ha cancellato una foto romantica dopo 11 secondi. Troppo tardi.", "[G] ha ricevuto un messaggio durante la partita. Ha guardato il telefono per 7 secondi. Il mister lo ha visto.", "[G] ha dichiarato di essere single. Il suo compagno ha commentato: \"Sicuro?\"", "[G] ha pubblicato una foto con qualcuno. Ha oscurato il volto. I tifosi hanno identificato la persona in 4 minuti.", "[G] ha ricevuto una proposta di matrimonio. Non era rivolta a lui.", "[G] ha organizzato una cena romantica. Ha dimenticato di prenotare il ristorante.", "[G] ha detto che il suo cuore è occupato. Il suo agente ha chiesto da chi.", "[G] ha comprato una macchina nuova. Ha scoperto dopo che non sa guidarla.", "[G] ha acquistato un orologio costoso. Ha perso la scatola il giorno stesso.", "[G] ha comprato una villa. Ha dimenticato di controllare se ci fosse il riscaldamento.", "[G] ha speso €10.000 in vestiti. Ha comunque indossato la tuta della squadra.", "[G] ha acquistato un animale esotico. Il condominio non è entusiasta.", "[G] ha comprato un jet privato. Lo ha usato una volta per andare a 70 km di distanza.", "[G] ha ordinato una cena da €2.000. Ha dimenticato il portafoglio.", "[G] ha comprato un quadro costosissimo. Lo ha appeso al contrario.", "[G] ha acquistato una collezione di scarpe. Non ha più spazio in casa.", "[G] ha pagato €500 per un taglio di capelli. Il giorno dopo ha chiesto il rimborso.", "[G] ha confuso la conferenza stampa con una riunione del fantacalcio.", "[G] ha chiamato il mister \"papà\" davanti a 40 giornalisti.", "[G] ha festeggiato un gol con una coreografia preparata per un altro compagno.", "[G] ha dimenticato il proprio numero di maglia.", "[G] ha firmato un autografo sulla patente di un tifoso.", "[G] ha chiesto all'arbitro se poteva controllare il VAR per una discussione con il proprio compagno.", "[G] ha fatto un'intervista di 20 minuti senza accorgersi che il microfono era spento.", "[G] ha esultato dopo un gol annullato. È rimasto da solo a festeggiare per 30 secondi.", "[G] ha ricevuto una telefonata dal presidente durante il riscaldamento. Ha risposto dicendo: \"Pronto, mister?\"", "[G] è diventato involontariamente una leggenda del calcio dopo aver fatto una cosa completamente normale nel momento sbagliato."];
+
+/* ---------- setup ---------- */
+const MODULI = {
+  '3-1-2': {
+    nome:'3-1-2', desc:'Equilibrio · il modulo di base',
+    righe:[{k:'P',n:1,lab:'Portiere'},{k:'D',n:3,lab:'Difesa'},
+           {k:'C',n:1,lab:'Mediano'},{k:'A',n:2,lab:'Attacco'}],
+    // moltiplicatori sul motore
+    atk:1.00, def:1.00,
+    note:'Tre dietro, due davanti. Nessuna sbavatura, nessun eccesso.'
+  },
+  '2-3-1': {
+    nome:'2-3-1', desc:'Possesso · dominio a centrocampo',
+    righe:[{k:'P',n:1,lab:'Portiere'},{k:'D',n:2,lab:'Difesa'},
+           {k:'C',n:3,lab:'Centrocampo'},{k:'A',n:1,lab:'Punta'}],
+    atk:1.05, def:0.94,
+    note:'Superiorita in mezzo, ma solo due centrali dietro.'
+  },
+  '3-2-1': {
+    nome:'3-2-1', desc:'Solidita · difesa e ripartenza',
+    righe:[{k:'P',n:1,lab:'Portiere'},{k:'D',n:3,lab:'Difesa'},
+           {k:'C',n:2,lab:'Centrocampo'},{k:'A',n:1,lab:'Punta'}],
+    atk:0.96, def:1.14,
+    note:'Blocco basso e compatto. Si segna meno, si subisce molto meno.'
+  },
+};
+let MODULO = '3-1-2';
+
+/* ---------- modalita' di gioco ---------- */
+const MODALITA_OPTS = {
+  normale: {
+    nome:'Normale',
+    desc:'overall visibili',
+    note:"Vedi il valore di ogni giocatore prima di scegliere: i sette migliori per squadra e ruolo.",
+  },
+  esperto: {
+    nome:'Esperto',
+    desc:'solo nomi',
+    note:"Nessun overall, nessuna statistica. Scegli tra tutti i giocatori disponibili di quella squadra, in ordine casuale. Solo la tua conoscenza del campionato.",
+  },
+  random: {
+    nome:'Random',
+    desc:'pesca istantanea',
+    note:"Un tocco e hai la rosa: sette giocatori a caso da tutto il database, senza vincoli di squadra. I malus da disciplina sono azzerati, visto che non hai scelto tu chi arriva.",
+  },
+};
+let MODALITA = 'normale';
+
+function renderModalita(){
+  const box = document.getElementById('modePick');
+  if(!box) return;
+  box.innerHTML = '';
+  Object.keys(MODALITA_OPTS).forEach(k=>{
+    const m = MODALITA_OPTS[k];
+    const b = document.createElement('button');
+    b.className = 'mod-btn' + (k===MODALITA?' on':'');
+    b.innerHTML = `<b>${m.nome}</b><span>${m.desc}</span>`;
+    b.onclick = ()=>{ if(k===MODALITA) return; MODALITA = k; reset(); };
+    box.appendChild(b);
+  });
+  const note = document.getElementById('modeNote');
+  if(note) note.textContent = MODALITA_OPTS[MODALITA].note;
+
+  const normDiv = document.getElementById('draftNormale');
+  const randDiv = document.getElementById('draftRandom');
+  if(normDiv && randDiv){
+    normDiv.classList.toggle('hidden', MODALITA==='random');
+    randDiv.classList.toggle('hidden', MODALITA!=='random');
+  }
+}
+
+let FORMATION = MODULI[MODULO].righe;
+let SLOTS = [];
+function buildSlots(){
+  FORMATION = MODULI[MODULO].righe;
+  SLOTS = [];
+  FORMATION.forEach(f=>{ for(let i=0;i<f.n;i++) SLOTS.push({role:f.k,lab:f.lab}); });
+}
+buildSlots();
+
+const TEAMS = Object.keys(DATA.squadre);
+const GIORNATE = DATA.giornate;
+
+/* Roster e pesi per squadra reale, precalcolati una volta sola:
+   servono per assegnare i marcatori anche nelle partite che non giochi tu. */
+const PESO_SEGNA_BASE = {A:5.0, C:2.2, D:0.55, P:0.04};
+const ROSTER_PER_TEAM = {};
+TEAMS.forEach(t=>{
+  const roster = DATA.giocatori.filter(p=>p.t===t && !p.off);
+  const weights = roster.map(p=>PESO_SEGNA_BASE[p.p] * Math.pow(p.r/70, 2.2));
+  const totW = weights.reduce((a,b)=>a+b, 0);
+  ROSTER_PER_TEAM[t] = {roster, weights, totW};
+});
+
+function pickScorerFromTeam(team){
+  const rt = ROSTER_PER_TEAM[team];
+  if(!rt || rt.roster.length===0) return null;
+  let x = Math.random()*rt.totW;
+  for(let i=0;i<rt.roster.length;i++){
+    x -= rt.weights[i];
+    if(x<=0) return rt.roster[i];
+  }
+  return rt.roster[rt.roster.length-1];
+}
+
+function marcatoriSquadraReale(team, n){
+  const out = {};
+  for(let i=0;i<n;i++){
+    const p = pickScorerFromTeam(team);
+    if(!p) continue;
+    if(!out[p.n]) out[p.n] = {player:p, g:0};
+    out[p.n].g++;
+  }
+  return Object.values(out);
+}
+
+let squad, used, spinning, currentPool, skipUsato;
+
+function reset(){
+  buildSlots();
+  squad = SLOTS.map(s=>({role:s.role,lab:s.lab,player:null}));
+  used = new Set();
+  spinning = false;
+  currentPool = null;
+  skipUsato = false;
+  document.getElementById('pickList').classList.add('hidden');
+  document.getElementById('skipBtn').classList.add('hidden');
+  document.getElementById('simBtn').classList.add('hidden');
+  document.getElementById('mdBtn').classList.add('hidden');
+  document.getElementById('matchday').classList.add('hidden');
+  document.getElementById('mdNext').classList.remove('hidden');
+  document.getElementById('mdEnd').classList.add('hidden');
+  document.getElementById('spinBtn').disabled = false;
+  document.getElementById('reelTeam').textContent = '—';
+  document.getElementById('reelMeta').textContent = 'premi estrai';
+  document.getElementById('result').classList.add('hidden');
+  document.getElementById('draft').classList.remove('hidden');
+  render();
+}
+
+/* ---------- ruota ---------- */
+function spin(){
+  if(spinning) return;
+  const empty = squad.filter(s=>!s.player).length;
+  if(empty===0) return;
+  spinning = true;
+  document.getElementById('spinBtn').disabled = true;
+  document.getElementById('pickList').classList.add('hidden');
+  document.getElementById('skipBtn').classList.add('hidden');
+
+  const target = TEAMS[Math.floor(Math.random()*TEAMS.length)];
+  const tEl = document.getElementById('reelTeam');
+  const mEl = document.getElementById('reelMeta');
+  let n = 0;
+  const total = 16 + Math.floor(Math.random()*8);
+  const tick = ()=>{
+    n++;
+    if(n < total){
+      tEl.textContent = TEAMS[Math.floor(Math.random()*TEAMS.length)];
+      mEl.textContent = '···';
+      setTimeout(tick, 40 + n*7);
+    } else {
+      tEl.textContent = target;
+      const s = DATA.squadre[target];
+      mEl.textContent = `${s.pt} pt · ${s.f}-${s.s} · ${s.v}V ${s.n}N ${s.p}P`;
+      spinning = false;
+      openPool(target);
+    }
+  };
+  tick();
+}
+
+function cardStr(p){
+  let o = p.new ? ' · <em class="nw">nuovo</em>' : '';
+  if(p.y) o += ' · '+p.y+'G';
+  if(p.rc) o += ' '+p.rc+'R';
+  return o;
+}
+
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]] = [a[j],a[i]];
+  }
+  return a;
+}
+
+/* ---------- pool giocatori ---------- */
+function openPool(team){
+  const needed = new Set(squad.filter(s=>!s.player).map(s=>s.role));
+  let pool = DATA.giocatori.filter(p =>
+    p.t===team && !used.has(p.n) && needed.has(p.p) && !p.off
+  );
+  // se la squadra non ha giocatori nei ruoli mancanti, allarga a tutti i suoi
+  if(pool.length===0){
+    pool = DATA.giocatori.filter(p=>p.t===team && !used.has(p.n) && !p.off);
+  }
+  if(MODALITA==='esperto'){
+    pool = shuffle(pool);   // tutti i candidati, ordine casuale ad ogni estrazione
+  } else {
+    pool.sort((a,b)=>b.r-a.r);
+    pool = pool.slice(0,7);
+  }
+  currentPool = pool;
+
+  const list = document.getElementById('pickList');
+  const skip = document.getElementById('skipBtn');
+  list.innerHTML = '';
+  if(pool.length===0){
+    list.innerHTML = '<div class="tiny" style="margin:8px 0">Nessun giocatore disponibile · rilancia</div>';
+    document.getElementById('spinBtn').disabled = false;
+    list.classList.remove('hidden');
+    skip.classList.toggle('hidden', skipUsato);
+    return;
+  }
+  pool.forEach(p=>{
+    const b = document.createElement('button');
+    b.className = 'pick';
+    const canPlace = squad.some(s=>!s.player && s.role===p.p);
+    b.disabled = !canPlace;
+    if(MODALITA==='esperto'){
+      b.innerHTML = `
+        <span class="ovr expert">•</span>
+        <span class="pick-name"><b>${p.n}</b><span>${p.t}</span></span>
+        <span class="pos">${p.p}</span>`;
+    } else {
+      b.innerHTML = `
+        <span class="ovr">${p.r}</span>
+        <span class="pick-name"><b>${p.n}</b><span>${p.t}${p.g?' · '+p.g+' gol':''}${cardStr(p)}</span></span>
+        <span class="pos">${p.p}</span>`;
+    }
+    b.onclick = ()=>place(p);
+    list.appendChild(b);
+  });
+  list.classList.remove('hidden');
+  skip.classList.toggle('hidden', skipUsato);
+}
+
+function skipTeam(){
+  if(skipUsato) return;
+  skipUsato = true;
+  document.getElementById('pickList').classList.add('hidden');
+  document.getElementById('skipBtn').classList.add('hidden');
+  spin();
+}
+
+function place(p){
+  const slot = squad.find(s=>!s.player && s.role===p.p);
+  if(!slot) return;
+  slot.player = p;
+  used.add(p.n);
+  document.getElementById('pickList').classList.add('hidden');
+  document.getElementById('skipBtn').classList.add('hidden');
+  document.getElementById('spinBtn').disabled = false;
+  render();
+}
+
+/* ---------- pesca casuale (modalita' Random) ---------- */
+function pescaCasuale(){
+  const pool = DATA.giocatori.filter(p=>!p.off);
+  const nuovaSquad = squad.map(s=>({role:s.role, lab:s.lab, player:null}));
+  const usedLocal = new Set();
+  for(const s of nuovaSquad){
+    const candidati = pool.filter(p=>p.p===s.role && !usedLocal.has(p.n));
+    if(candidati.length===0) return;   // non dovrebbe mai succedere, i ruoli sono abbondanti
+    // pescata pesata: sotto overall 75 la probabilita' scende in modo esponenziale
+    // con la distanza dalla soglia (un 74 e' quasi come un 75, un 55 e' molto piu' raro).
+    const pesi = candidati.map(p => p.r>=75 ? 1 : Math.exp(-(75-p.r)/8));
+    const totPeso = pesi.reduce((a,b)=>a+b, 0);
+    let x = Math.random()*totPeso;
+    let base = candidati[candidati.length-1];
+    for(let k=0;k<candidati.length;k++){
+      x -= pesi[k];
+      if(x<=0){ base = candidati[k]; break; }
+    }
+    usedLocal.add(base.n);
+    // malus da disciplina azzerati: non hai scelto tu chi arriva
+    const rPulito = Math.min(97, Math.round(base.r + (1-base.d)*3));
+    s.player = {...base, r:rPulito, d:1, y:0, rc:0};
+  }
+  squad = nuovaSquad;
+  used = usedLocal;
+  render();
+}
+
+/* ---------- albo dei record ---------- */
+const REC_KEY = 'albo26';
+let ALBO = null;          // {best:{...}, storia:[...]}
+
+async function caricaAlbo(){
+  try{
+    const r = await window.storage.get(REC_KEY);
+    ALBO = r ? JSON.parse(r.value) : {best:null, worst:null, storia:[], partite:0};
+  }catch(e){
+    ALBO = {best:null, worst:null, storia:[], partite:0};
+  }
+  renderAlbo();
+}
+
+async function salvaAlbo(){
+  try{ await window.storage.set(REC_KEY, JSON.stringify(ALBO)); }
+  catch(e){ /* offline: l'albo resta in memoria per questa sessione */ }
+}
+
+/* punteggio per confrontare due stagioni */
+function punteggio(r){ return r.pt*1000 + (r.GF-r.GS); }
+
+async function registraStagione(r){
+  if(!ALBO) ALBO = {best:null, worst:null, storia:[], partite:0};
+  const voce = {
+    id: Date.now()+'_'+Math.random().toString(36).slice(2,7),
+    pt:r.pt, V:r.V, N:r.N, P:r.P, GF:r.GF, GS:r.GS, pos:r.pos,
+    ovr:Math.round(r.ovr*10)/10, mod:MODULO,
+    rosa: squad.map(x=>({n:x.player.n, r:x.player.r, p:x.role})),
+    top: Object.entries(r.log.reduce((a,m)=>{
+            m.mar.forEach(x=>a[x.n]=(a[x.n]||0)+x.g); return a;},{}))
+          .sort((a,b)=>b[1]-a[1])[0] || null,
+    data: new Date().toLocaleDateString('it-IT'),
+  };
+  ALBO.partite++;
+  const nuovoRecord = !ALBO.best || punteggio(voce) > punteggio(ALBO.best);
+  if(nuovoRecord) ALBO.best = voce;
+  if(!ALBO.worst || punteggio(voce) < punteggio(ALBO.worst)) ALBO.worst = voce;
+  ALBO.storia.unshift(voce);
+  ALBO.storia = ALBO.storia.slice(0,10);
+  await salvaAlbo();
+  renderAlbo();
+  inviaClassificaOnline(voce);   // fire-and-forget, non blocca il resto
+  return nuovoRecord;
+}
+
+/* ---------- classifica online (Google Sheet condiviso) ---------- */
+function sheetConfigurato(){
+  return SHEET_URL && SHEET_URL.startsWith('https://script.google.com/');
+}
+
+async function inviaClassificaOnline(voce){
+  if(!sheetConfigurato()) return;
+  try{
+    await fetch(SHEET_URL, {
+      method: 'POST',
+      headers: {'Content-Type': 'text/plain;charset=utf-8'},
+      body: JSON.stringify({
+        squadra: nomeSquadra(),
+        record: `${voce.V}-${voce.N}-${voce.P}`,
+        punti: voce.pt,
+        golFatti: voce.GF,
+        golSubiti: voce.GS,
+        posizione: voce.pos,
+        modulo: voce.mod,
+        mediaRosa: voce.ovr,
+        capocannoniere: voce.top ? voce.top[0] : '',
+        golCapocannoniere: voce.top ? voce.top[1] : 0,
+      }),
+    });
+    setTimeout(caricaClassificaOnline, 1500);   // il foglio impiega un attimo ad aggiornarsi
+  }catch(e){
+    /* offline o foglio non raggiungibile: il gioco continua comunque in locale */
+  }
+}
+
+async function caricaClassificaOnline(){
+  const box = document.getElementById('onlineBoard');
+  if(!box) return;
+  if(!sheetConfigurato()){
+    box.innerHTML = '<div class="albo-vuoto">Classifica online non ancora collegata.</div>';
+    return;
+  }
+  try{
+    const res = await fetch(SHEET_URL);
+    const rows = await res.json();
+    renderClassificaOnline(rows);
+  }catch(e){
+    box.innerHTML = '<div class="albo-vuoto">Classifica online non raggiungibile al momento.</div>';
+  }
+}
+
+function renderClassificaOnline(rows){
+  const box = document.getElementById('onlineBoard');
+  if(!box) return;
+  if(!rows || rows.length===0){
+    box.innerHTML = '<div class="albo-vuoto">Ancora nessun risultato caricato. Il primo tocca a te.</div>';
+    return;
+  }
+  const ord = rows.slice().sort((a,b)=>
+    (Number(b.Punti)*1000 + (Number(b.GolFatti)-Number(b.GolSubiti))) -
+    (Number(a.Punti)*1000 + (Number(a.GolFatti)-Number(a.GolSubiti)))
+  ).slice(0,10);
+  box.innerHTML = '';
+  ord.forEach((row,i)=>{
+    const d = document.createElement('div');
+    d.className = 'online-row';
+    d.innerHTML = `<span class="on-p">${i+1}</span>
+      <span class="on-t">${row.Squadra||'—'}</span>
+      <span class="on-r">${row.Record||''}</span>
+      <span class="on-pt">${row.Punti||0}pt</span>`;
+    box.appendChild(d);
+  });
+}
+
+const ANTI_LABEL = [
+  'sofferenza pura', 'un lunedì mattina infinito', 'il fondo del pozzo',
+  'meglio non parlarne', 'un attestato di partecipazione',
+];
+
+function renderAlbo(){
+  const box = document.getElementById('albo');
+  if(!box) return;
+  if(!ALBO || !ALBO.best){
+    box.innerHTML = '<div class="albo-vuoto">Nessuna stagione giocata.<br>Il primo record e\' tutto da scrivere.</div>';
+    return;
+  }
+  const b = ALBO.best;
+  let html = `
+    <div class="albo-best">
+      <div class="albo-rec">${b.V}-${b.N}-${b.P}</div>
+      <div class="albo-meta">${b.pt} punti · ${b.pos}° posto · ${b.mod} · media ${b.ovr}</div>
+      ${b.top ? `<div class="albo-top">capocannoniere · ${b.top[0]} (${b.top[1]})</div>` : ''}
+      <div class="albo-rosa">${b.rosa.map(x=>`<span>${x.r} ${x.n.split(' ')[0]}</span>`).join('')}</div>
+    </div>`;
+  const w = ALBO.worst;
+  if(w && (!b || w.id!==b.id)){
+    const lbl = ANTI_LABEL[Math.floor(Math.random()*ANTI_LABEL.length)];
+    html += `
+    <div class="albo-worst">
+      <div class="albo-worst-rec">${w.V}-${w.N}-${w.P}</div>
+      <div class="albo-worst-meta">${w.pt} punti · ${w.pos}° posto · ${lbl}</div>
+    </div>`;
+  }
+  html += `<div class="albo-cnt">${ALBO.partite} stagioni giocate</div>`;
+  box.innerHTML = html;
+}
+
+/* ---------- selettore modulo ---------- */
+function renderModuli(){
+  const box = document.getElementById('modPick');
+  box.innerHTML = '';
+  Object.keys(MODULI).forEach(k=>{
+    const m = MODULI[k];
+    const b = document.createElement('button');
+    b.className = 'mod-btn' + (k===MODULO?' on':'');
+    b.innerHTML = `<b>${m.nome}</b><span>${m.desc.split(' · ')[0]}</span>`;
+    b.onclick = ()=>{ if(k===MODULO) return; MODULO=k; reset(); };
+    box.appendChild(b);
+  });
+  const m = MODULI[MODULO];
+  document.getElementById('modNote').textContent = m.note;
+}
+
+/* ---------- render ---------- */
+function render(){
+  renderModuli();
+  renderModalita();
+  const filled = squad.filter(s=>s.player).length;
+  document.getElementById('pickCount').textContent = `${Math.min(filled+1,7)} / 7`;
+
+  const field = document.getElementById('field');
+  field.innerHTML = '';
+  let idx = 0;
+  [...FORMATION].reverse().forEach(f=>{
+    const row = document.createElement('div');
+    row.className = 'row';
+    const start = SLOTS.findIndex(s=>s.role===f.k);
+    for(let i=0;i<f.n;i++){
+      const s = squad[start+i];
+      const d = document.createElement('div');
+      d.className = 'slot' + (s.player?' filled':'');
+      d.innerHTML = s.player
+        ? `<div class="so">${s.player.r}</div><div class="sn">${s.player.n}</div>`
+        : `<div class="sp">${f.k}</div><div class="sn" style="opacity:.4">${f.lab}</div>`;
+      row.appendChild(d);
+    }
+    field.appendChild(row);
+  });
+
+  // chimica
+  const counts = {};
+  squad.forEach(s=>{ if(s.player) counts[s.player.t]=(counts[s.player.t]||0)+1; });
+  const chem = document.getElementById('chem');
+  chem.innerHTML = '';
+  const entries = Object.entries(counts).sort((a,b)=>b[1]-a[1]);
+  if(entries.length===0){
+    chem.innerHTML = '<span class="chip">nessun giocatore</span>';
+  } else {
+    entries.forEach(([t,c])=>{
+      const sp = document.createElement('span');
+      sp.className = 'chip' + (c>=2?' on':'');
+      sp.textContent = `${t} ×${c}`;
+      chem.appendChild(sp);
+    });
+  }
+
+  document.getElementById('simBtn').classList.toggle('hidden', filled<7);
+  document.getElementById('mdBtn').classList.toggle('hidden', filled<7);
+  document.getElementById('spinBtn').classList.toggle('hidden', filled>=7);
+}
+
+/* ---------- chimica: bonus ---------- */
+function chemBonus(){
+  const counts = {};
+  squad.forEach(s=>counts[s.player.t]=(counts[s.player.t]||0)+1);
+  let b = 0;
+  Object.values(counts).forEach(c=>{ if(c>=2) b += (c-1)*1.6; });
+  return Math.min(b, 8);   // max +8%
+}
+
+/* ---------- gossip goliardico ---------- */
+/* Puramente decorativo: non tocca mai il motore di gioco. */
+function pescaGossip(){
+  const frase = GOSSIP[Math.floor(Math.random()*GOSSIP.length)];
+  const chi = squad[Math.floor(Math.random()*squad.length)].player.n;
+  return frase.replace('[G]', chi);
+}
+
+/* ---------- disciplina ---------- */
+// media rossi nel girone: ~11 su 156 partite -> ~3.5% a squadra
+function redRisk(){
+  const d = squad.reduce((a,s)=>a+(s.player.d!==undefined?s.player.d:1),0)/7;
+  return 0.012 + (1-d)*0.075;   // rosa pulita ~1.2%, rosa indisciplinata ~9%
+}
+
+/* ---------- motore di simulazione ---------- */
+function squadRatings(){
+  let atk=0, def=0, wA=0, wD=0;
+  squad.forEach(s=>{
+    const r = s.player.r;
+    if(s.role==='P'){ def += r*1.9; wD += 1.9; }
+    else if(s.role==='D'){ def += r*1.35; wD += 1.35; atk += r*.30; wA += .30; }
+    else if(s.role==='C'){ def += r*.55;  wD += .55;  atk += r*.95; wA += .95; }
+    else { atk += r*1.5; wA += 1.5; def += r*.15; wD += .15; }
+  });
+  return {atk:atk/wA, def:def/wD};
+}
+
+function poisson(lambda){
+  const L = Math.exp(-lambda);
+  let k=0, p=1;
+  do{ k++; p *= Math.random(); }while(p>L);
+  return k-1;
+}
+
+const LEAGUE_AVG = DATA.lega.gol_medi;
+const BASE = 78, EXP = 3.0;
+const HOME = Math.sqrt(DATA.lega.home_adv);
+
+/* Chi segna: peso per ruolo x rating. Gli attaccanti segnano molto piu' spesso. */
+const SCORE_W_BASE = {A:5.0, C:2.2, D:0.55, P:0.04};
+function scoreW(){
+  const w = {...SCORE_W_BASE};
+  // con una sola punta i centrocampisti pesano di piu' in zona gol
+  if(MODULO==='2-3-1'){ w.C=3.0; w.A=5.5; }
+  if(MODULO==='3-2-1'){ w.C=2.6; w.A=5.5; w.D=0.7; }
+  return w;
+}
+function pickScorer(){
+  const SW = scoreW();
+  const w = squad.map(s=>SW[s.role] * Math.pow(s.player.r/70, 2.2));
+  const tot = w.reduce((a,b)=>a+b,0);
+  let x = Math.random()*tot;
+  for(let i=0;i<squad.length;i++){ x -= w[i]; if(x<=0) return squad[i].player.n; }
+  return squad[squad.length-1].player.n;
+}
+function scorers(n, escluso){
+  const out = {};
+  for(let i=0;i<n;i++){
+    let who = pickScorer();
+    if(escluso && who===escluso && Math.random()<0.7) who = pickScorer();
+    out[who] = (out[who]||0)+1;
+  }
+  return Object.entries(out).map(([n,g])=>({n,g}));
+}
+
+/* ---------- calendario ---------- */
+let season = null;
+const MIA = '__LA MIA SQUADRA__';   // chiave interna, mai mostrata
+let NOME_SQUADRA = 'LA TUA SQUADRA';
+
+function nomeSquadra(){
+  return NOME_SQUADRA.trim() || 'LA TUA SQUADRA';
+}
+
+/* Girone all'italiana con l'algoritmo del cerchio.
+   14 partecipanti (13 squadre reali + la tua) -> 26 giornate, 7 partite ciascuna. */
+function buildCalendar(){
+  const t = [MIA, ...TEAMS];              // 14
+  const n = t.length;
+  const fissa = t[0];
+  let ruota = t.slice(1);                 // 13 che ruotano
+  const giornate = [];
+  for(let g=0; g<n-1; g++){
+    const gg = [];
+    gg.push(g%2===0 ? {casa:fissa, fuori:ruota[0]} : {casa:ruota[0], fuori:fissa});
+    for(let i=1;i<n/2;i++){
+      const a = ruota[i], b = ruota[ruota.length-i];
+      gg.push(g%2===0 ? {casa:a, fuori:b} : {casa:b, fuori:a});
+    }
+    giornate.push(gg);
+    ruota = [ruota[ruota.length-1], ...ruota.slice(0,-1)];
+  }
+  // ritorno con campi invertiti
+  const ritorno = giornate.map(gg=>gg.map(m=>({casa:m.fuori, fuori:m.casa})));
+  return [...giornate, ...ritorno];       // 26 giornate
+}
+
+function newSeason(){
+  const cal = buildCalendar();
+  const cls = {};
+  [MIA, ...TEAMS].forEach(t=>cls[t]={pt:0,v:0,n:0,p:0,gf:0,gs:0});
+  season = {
+    cal, i:0, cls,
+    V:0,N:0,P:0,GF:0,GS:0,rossi:0,
+    log:[], stanchezza:0,
+    ovr: squad.reduce((a,s)=>a+s.player.r,0)/7,
+    bonus: chemBonus(),
+  };
+}
+
+/* forza offensiva/difensiva di una squadra reale, in gol per partita */
+function teamRates(t){
+  const o = DATA.squadre[t];
+  return {atk:o.f/o.g, def:o.s/o.g};
+}
+
+/* partita fra due squadre reali, con marcatori assegnati ai loro roster veri */
+function simNeutral(casa, fuori){
+  const A = teamRates(casa), B = teamRates(fuori);
+  let lamA = (A.atk/LEAGUE_AVG) * B.def * HOME;
+  let lamB = (B.atk/LEAGUE_AVG) * A.def / HOME;
+  lamA = Math.max(.25, Math.min(11, lamA));
+  lamB = Math.max(.25, Math.min(11, lamB));
+  const ga = poisson(lamA), gb = poisson(lamB);
+  const marA = marcatoriSquadraReale(casa, ga);
+  const marB = marcatoriSquadraReale(fuori, gb);
+  return {ga, gb, marA, marB};
+}
+
+function registra(cls, casa, fuori, ga, gb){
+  cls[casa].gf+=ga; cls[casa].gs+=gb;
+  cls[fuori].gf+=gb; cls[fuori].gs+=ga;
+  if(ga>gb){ cls[casa].pt+=3; cls[casa].v++; cls[fuori].p++; }
+  else if(ga<gb){ cls[fuori].pt+=3; cls[fuori].v++; cls[casa].p++; }
+  else { cls[casa].pt++; cls[fuori].pt++; cls[casa].n++; cls[fuori].n++; }
+}
+
+/* Gioca una giornata: la tua partita + le altre sei */
+function playMatch(){
+  const S = season;
+  const gg = S.cal[S.i];
+  const mia = gg.find(m=>m.casa===MIA || m.fuori===MIA);
+  const inCasa = mia.casa===MIA;
+  const avv = inCasa ? mia.fuori : mia.casa;
+
+  const o = DATA.squadre[avv];
+  const oAtk = o.f/o.g, oDef = o.s/o.g;
+  const {atk,def} = squadRatings();
+  const bonus = S.bonus/100;
+
+  const mod = MODULI[MODULO];
+  let myAtk = Math.pow(atk/BASE, EXP) * (1+bonus) * mod.atk;
+  let myDef = Math.pow(def/BASE, EXP) * (1+bonus) * mod.def;
+
+  const hf = inCasa ? HOME : 1/HOME;
+  myAtk *= hf; myDef *= hf;
+
+  const fatica = 1 - S.stanchezza*0.003;
+  myAtk *= fatica; myDef *= fatica;
+
+  if(Math.random() < 0.11){ myAtk *= 0.85; myDef *= 0.87; }
+
+  let espulso = null;
+  if(Math.random() < redRisk()){
+    espulso = squad[Math.floor(Math.random()*7)].player;
+    S.rossi++;
+    myAtk *= 0.72; myDef *= 0.78;
+  }
+
+  let lamMe  = LEAGUE_AVG * myAtk * (oDef/LEAGUE_AVG);
+  let lamOpp = LEAGUE_AVG * (oAtk/LEAGUE_AVG) / myDef;
+  lamMe  = Math.max(.30, Math.min(11, lamMe));
+  lamOpp = Math.max(.40, Math.min(11, lamOpp));
+
+  const gf = poisson(lamMe), gs = poisson(lamOpp);
+  S.GF+=gf; S.GS+=gs;
+  let res;
+  if(gf>gs){S.V++; res='w';} else if(gf===gs){S.N++; res='d';} else {S.P++; res='l';}
+  S.stanchezza += res==='w' ? .55 : 1;
+
+  registra(S.cls, inCasa?MIA:avv, inCasa?avv:MIA, inCasa?gf:gs, inCasa?gs:gf);
+
+  // le altre sei partite della giornata
+  const altre = [];
+  gg.forEach(m=>{
+    if(m.casa===MIA || m.fuori===MIA) return;
+    const res = simNeutral(m.casa, m.fuori);
+    registra(S.cls, m.casa, m.fuori, res.ga, res.gb);
+    altre.push({casa:m.casa, fuori:m.fuori, ga:res.ga, gb:res.gb, marA:res.marA, marB:res.marB});
+  });
+
+  const m = {gg:S.i+1, opp:avv, gf, gs, res, casa:inCasa,
+             rosso: espulso?espulso.n:null,
+             mar: scorers(gf, espulso?espulso.n:null),
+             altre};
+  S.log.push(m);
+  S.i++;
+  return m;
+}
+
+/* classifica ordinata */
+function classifica(){
+  const S = season;
+  return Object.entries(S.cls).map(([t,c])=>({
+    t, ...c, dr: c.gf-c.gs, g: c.v+c.n+c.p
+  })).sort((a,b)=> b.pt-a.pt || b.dr-a.dr || b.gf-a.gf || a.t.localeCompare(b.t));
+}
+
+function seasonTotals(){
+  const S = season;
+  const pt = S.V*3 + S.N;
+  const cls = classifica();
+  const pos = cls.findIndex(x=>x.t===MIA) + 1;
+  return {V:S.V,N:S.N,P:S.P,GF:S.GF,GS:S.GS,pt,pos,cls,
+          ovr:S.ovr,bonus:S.bonus,rossi:S.rossi,log:S.log,
+          finita:S.i>=GIORNATE};
+}
+
+/* stagione intera in un colpo */
+async function simulate(){
+  newSeason();
+  while(season.i < GIORNATE) playMatch();
+  await showResult(seasonTotals());
+}
+
+/* modalita' giornata per giornata */
+function startMatchday(){
+  newSeason();
+  document.getElementById('draft').classList.add('hidden');
+  document.getElementById('matchday').classList.remove('hidden');
+  renderMatchday(null);
+}
+
+function nextMatchday(){
+  const m = playMatch();
+  renderMatchday(m);
+  if(season.i >= GIORNATE){
+    document.getElementById('mdNext').classList.add('hidden');
+    document.getElementById('mdEnd').classList.remove('hidden');
+  }
+}
+
+/* La stagione e' ancora perfetta? */
+function ancoraPerfetta(){
+  return season.P===0 && season.N===0;
+}
+
+function renderMatchday(m){
+  const S = season;
+  const gos = document.getElementById('mdGossip');
+  if(m && Math.random() < 0.55){
+    gos.textContent = pescaGossip();
+    gos.classList.remove('hidden');
+  } else {
+    gos.classList.add('hidden');
+  }
+  // tensione crescente quando la stagione e' immacolata
+  const sec = document.getElementById('matchday');
+  const restano = GIORNATE - S.i;
+  const perfetta = ancoraPerfetta() && S.i>0;
+  sec.classList.toggle('tensione', perfetta && restano<=5);
+  const bar = document.getElementById('mdStreak');
+  if(perfetta && S.i>=8){
+    bar.classList.remove('hidden');
+    bar.innerHTML = restano===0
+      ? `<b>26-0-0</b><span>l'hai fatto</span>`
+      : `<b>${S.V}-0-0</b><span>${restano===1?'manca una partita':'mancano '+restano+' partite'}</span>`;
+  } else if(S.P===0 && S.i>=8){
+    bar.classList.remove('hidden');
+    bar.innerHTML = `<b>imbattuto</b><span>${S.V}V ${S.N}N · ${restano} da giocare</span>`;
+  } else {
+    bar.classList.add('hidden');
+  }
+  document.getElementById('mdCount').textContent = `${S.i} / ${GIORNATE}`;
+  document.getElementById('mdRec').textContent = `${S.V}-${S.N}-${S.P}`;
+  const next = S.cal[S.i];
+  const mia = next ? next.find(x=>x.casa===MIA||x.fuori===MIA) : null;
+  const avv = mia ? (mia.casa===MIA ? mia.fuori : mia.casa) : null;
+  const inC = mia ? mia.casa===MIA : false;
+  document.getElementById('mdNextOpp').textContent =
+    avv ? (inC ? 'in casa · ' : 'in trasferta · ') + avv : 'stagione conclusa';
+
+  const btn = document.getElementById('mdNext');
+  if(avv && ancoraPerfetta() && S.i>0 && GIORNATE-S.i===1){
+    btn.textContent = "L'ultima. Vai.";
+    btn.classList.add('finale');
+  } else if(avv && ancoraPerfetta() && S.i>=20){
+    btn.textContent = 'Gioca la ' + (S.i+1) + 'ª';
+    btn.classList.remove('finale');
+  } else {
+    btn.textContent = 'Gioca la giornata';
+    btn.classList.remove('finale');
+  }
+
+  // classifica aggiornata
+  const ms = document.getElementById('mdStand');
+  ms.innerHTML = '';
+  classifica().forEach((row,i)=>{
+    const d=document.createElement('div');
+    const mine=row.t===MIA;
+    d.className='st-row'+(mine?' st-me':'');
+    d.innerHTML=`<span class="st-p">${i+1}</span>
+      <span class="st-t">${mine?nomeSquadra():row.t}</span>
+      <span class="st-pt">${row.pt}</span>
+      <span>${row.v}</span><span>${row.n}</span><span>${row.p}</span>
+      <span class="st-dr">${row.dr>0?'+':''}${row.dr}</span>`;
+    ms.appendChild(d);
+  });
+
+  const box = document.getElementById('mdBox');
+  if(!m){ box.innerHTML = '<div class="md-wait">Premi per giocare la prima giornata</div>'; return; }
+
+  const esito = m.res==='w' ? 'Vittoria' : m.res==='d' ? 'Pareggio' : 'Sconfitta';
+  box.innerHTML = `
+    <div class="md-esito ${m.res}">${esito}</div>
+    <div class="md-score">${m.gf}<span>-</span>${m.gs}</div>
+    <div class="md-opp">${m.casa?'in casa':'in trasferta'} · ${m.opp}</div>
+    ${m.mar.length ? '<div class="md-mar">'+m.mar.map(x=>
+        `<span>${x.n}${x.g>1?' <b>'+x.g+'</b>':''}</span>`).join('')+'</div>' : ''}
+    ${m.rosso ? `<div class="md-red">espulso · ${m.rosso}</div>` : ''}
+    ${m.altre && m.altre.length ? '<div class="md-altre">'+
+       m.altre.map(a=>`<div class="md-alt"><span>${a.casa}</span>
+         <b>${a.ga}-${a.gb}</b><span>${a.fuori}</span></div>`).join('')+'</div>' : ''}`;
+}
+
+async function endMatchday(){
+  document.getElementById('matchday').classList.add('hidden');
+  await showResult(seasonTotals());
+}
+
+async function showResult(r){
+  document.getElementById('draft').classList.add('hidden');
+  document.getElementById('result').classList.remove('hidden');
+
+  const rec = document.getElementById('record');
+  rec.textContent = `${r.V}-${r.N}-${r.P}`;
+  const nuovo = await registraStagione(r);
+  const badge = document.getElementById('recBadge');
+  badge.classList.toggle('hidden', !nuovo);
+  const tuttoImplast = squad.every(s=>s.player && s.player.t==='Implast');
+  document.getElementById('legendBadge').classList.toggle('hidden', !tuttoImplast);
+  const perfect = (r.V===GIORNATE);
+  rec.classList.toggle('perfect', perfect);
+  document.getElementById('recordLabel').textContent =
+    perfect ? '26-0-0 · la stagione perfetta'
+    : r.P===0 ? `imbattuti, ma ${r.N} ${r.N===1?'pareggio':'pareggi'} di troppo`
+    : r.P===1 ? `una sola sconfitta. Una.`
+    : `${GIORNATE} giocate · ${r.V} vinte`;
+
+  document.getElementById('stPos').textContent = r.pos + '°';
+  document.getElementById('stGf').textContent = r.GF;
+  document.getElementById('stGs').textContent = r.GS;
+  document.getElementById('stOvr').textContent = r.ovr.toFixed(1);
+  document.getElementById('stPt').textContent = r.pt;
+  document.getElementById('stMod').textContent = MODULO;
+
+  // classifica del girone
+  const st = document.getElementById('standings');
+  st.innerHTML = '';
+  const head = document.createElement('div');
+  head.className = 'st-row st-head';
+  head.innerHTML = `<span></span><span>squadra</span><span>PT</span><span>V</span><span>N</span><span>P</span><span>DR</span>`;
+  st.appendChild(head);
+  r.cls.forEach((row,i)=>{
+    const d = document.createElement('div');
+    const mine = row.t===MIA;
+    d.className = 'st-row' + (mine?' st-me':'');
+    const nome = mine ? nomeSquadra() : row.t;
+    d.innerHTML = `<span class="st-p">${i+1}</span>
+      <span class="st-t">${nome}</span>
+      <span class="st-pt">${row.pt}</span>
+      <span>${row.v}</span><span>${row.n}</span><span>${row.p}</span>
+      <span class="st-dr">${row.dr>0?'+':''}${row.dr}</span>`;
+    st.appendChild(d);
+  });
+
+  // classifica marcatori della rosa (solo la tua squadra, per la card "I tuoi marcatori")
+  const tot = {};
+  r.log.forEach(m=>m.mar.forEach(x=>tot[x.n]=(tot[x.n]||0)+x.g));
+
+  // Pallone d'oro della stagione: calcolato su TUTTI i giocatori del torneo,
+  // non solo sulla tua rosa. Un gol da difensore o portiere vale molto di piu'
+  // di uno da attaccante: e' quello che ti fa dire "wow" quando succede davvero.
+  const pesoRuolo = {A:0.6, C:1.3, D:2.4, P:4.8};
+  const golTorneo = {};   // nome -> {gol, player}
+  function accumulaGol(nome, gol, player){
+    if(!golTorneo[nome]) golTorneo[nome] = {gol:0, player};
+    golTorneo[nome].gol += gol;
+  }
+  r.log.forEach(m=>{
+    m.mar.forEach(x=>{
+      const pl = squad.find(s=>s.player.n===x.n)?.player;
+      if(pl) accumulaGol(x.n, x.g, pl);
+    });
+    (m.altre||[]).forEach(a=>{
+      (a.marA||[]).forEach(mm=>accumulaGol(mm.player.n, mm.g, mm.player));
+      (a.marB||[]).forEach(mm=>accumulaGol(mm.player.n, mm.g, mm.player));
+    });
+  });
+
+  // Estrazione pesata tra i migliori 20 della stagione, come una vera votazione:
+  // chi ha fatto meglio ha piu' probabilita' di vincere, ma non la certezza.
+  // Una rosa piccola come la tua concentra i gol su pochissimi giocatori
+  // (un tuo attaccante puo' arrivare al 50% dei gol della squadra, contro il
+  // 20-25% di un vero bomber in un roster da 20+ giocatori): senza questo
+  // correttivo il premio andrebbe sempre e solo a un tuo giocatore.
+  const candidatiBallon = Object.values(golTorneo)
+    .map(({gol,player})=>({gol, player, score: player.r + gol*pesoRuolo[player.p]}))
+    .sort((a,b)=>b.score-a.score)
+    .slice(0,20);
+  const pesiBallon = candidatiBallon.map(c=>Math.pow(c.score,4));
+  const totPesoBallon = pesiBallon.reduce((a,b)=>a+b,0);
+  let ballon = null;
+  if(candidatiBallon.length){
+    let x = Math.random()*totPesoBallon;
+    let scelto = candidatiBallon[candidatiBallon.length-1];
+    for(let k=0;k<candidatiBallon.length;k++){
+      x -= pesiBallon[k];
+      if(x<=0){ scelto = candidatiBallon[k]; break; }
+    }
+    ballon = {n:scelto.player.n, p:scelto.player.p, r:scelto.player.r,
+              g:scelto.gol, t:scelto.player.t,
+              mio: squad.some(s=>s.player.n===scelto.player.n)};
+  }
+  const bEl = document.getElementById('ballon');
+  if(bEl && ballon){
+    bEl.innerHTML = `
+      <div class="ballon-name">${ballon.n}${ballon.mio?' <span class="ballon-mio">tuo</span>':''}</div>
+      <div class="ballon-meta">${ballon.p} · overall ${ballon.r}${ballon.g?' · '+ballon.g+' gol':''}</div>
+      <div class="ballon-team">${ballon.t}</div>`;
+  }
+
+  const ts = document.getElementById('topScorers');
+  ts.innerHTML = '';
+  Object.entries(tot).sort((a,b)=>b[1]-a[1]).forEach(([n,g])=>{
+    const d=document.createElement('div');
+    d.className='scorer';
+    const pl=squad.find(s=>s.player.n===n);
+    d.innerHTML=`<span class="sc-pos">${pl?pl.role:''}</span>
+      <span class="sc-n">${n}</span><span class="sc-g">${g}</span>`;
+    ts.appendChild(d);
+  });
+
+  const log = document.getElementById('log');
+  log.innerHTML = '';
+  r.log.forEach(m=>{
+    const d = document.createElement('div');
+    d.className = 'match ' + m.res;
+    d.innerHTML = `<span class="gg">${m.gg}</span>
+      <span class="opp">${m.casa?'':'· '}${m.opp}${m.rosso?' <em>rosso</em>':''}
+        ${m.mar.length?'<i>'+m.mar.map(x=>x.n.split(' ')[0]+(x.g>1?' '+x.g:'')).join(', ')+'</i>':''}</span>
+      <span class="res">${m.gf}-${m.gs}</span>`;
+    log.appendChild(d);
+  });
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+/* ---------- eventi ---------- */
+document.getElementById('spinBtn').onclick = spin;
+document.getElementById('randomBtn').onclick = pescaCasuale;
+document.getElementById('skipBtn').onclick = skipTeam;
+document.getElementById('simBtn').onclick = simulate;
+document.getElementById('mdBtn').onclick = startMatchday;
+document.getElementById('mdNext').onclick = nextMatchday;
+document.getElementById('mdEnd').onclick = endMatchday;
+document.getElementById('mdQuit').onclick = reset;
+document.getElementById('resetBtn').onclick = reset;
+document.getElementById('draftMenuBtn').onclick = ()=>{
+  document.getElementById('draft').classList.add('hidden');
+  document.getElementById('menu').classList.remove('hidden');
+};
+document.getElementById('resultMenuBtn').onclick = ()=>{
+  document.getElementById('result').classList.add('hidden');
+  document.getElementById('menu').classList.remove('hidden');
+};
+document.getElementById('teamName').addEventListener('input', e=>{
+  NOME_SQUADRA = e.target.value;
+});
+document.getElementById('againBtn').onclick = reset;
+
+document.getElementById('menuSolo').onclick = ()=>{
+  document.getElementById('menu').classList.add('hidden');
+  reset();
+};
+document.getElementById('menuSfida').onclick = ()=>{
+  document.getElementById('menu').classList.add('hidden');
+  document.getElementById('sfidaSetup').classList.remove('hidden');
+  sfidaNomi = [];
+  sfidaRenderList();
+};
+document.getElementById('sfidaAddBtn').onclick = ()=>{
+  const inp = document.getElementById('sfidaNomeInput');
+  const val = inp.value.trim();
+  if(!val) return;
+  if(sfidaNomi.includes(val)){ inp.value=''; return; }
+  sfidaNomi.push(val);
+  inp.value = '';
+  sfidaRenderList();
+};
+document.getElementById('sfidaNomeInput').addEventListener('keydown', e=>{
+  if(e.key==='Enter') document.getElementById('sfidaAddBtn').click();
+});
+document.getElementById('sfidaStartBtn').onclick = ()=>{
+  if(sfidaNomi.length<2) return;
+  avviaSfidaDraft(sfidaNomi.slice());
+};
+document.getElementById('sfidaBackBtn').onclick = ()=>{
+  document.getElementById('sfidaSetup').classList.add('hidden');
+  document.getElementById('menu').classList.remove('hidden');
+};
+document.getElementById('sfidaSpinBtn').onclick = sfidaSpin;
+document.getElementById('sfidaAgainBtn').onclick = ()=>{
+  document.getElementById('sfidaResult').classList.add('hidden');
+  document.getElementById('sfidaSetup').classList.remove('hidden');
+  sfidaNomi = [];
+  sfidaRenderList();
+};
+document.getElementById('sfidaMenuBtn').onclick = ()=>{
+  document.getElementById('sfidaResult').classList.add('hidden');
+  document.getElementById('menu').classList.remove('hidden');
+};
+
+/* ---------- motore riutilizzabile: gioca una stagione per una rosa qualsiasi ---------- */
+function giocaStagioneRapida(squadArray){
+  const squadOriginale = squad;
+  squad = squadArray;
+  newSeason();
+  while(season.i < GIORNATE) playMatch();
+  const totali = seasonTotals();
+  squad = squadOriginale;
+  return totali;
+}
+
+/* ---------- modalita' Sfida: draft a serpentina, pool condiviso ---------- */
+let sfida = null;
+let sfidaNomi = [];
+let sfidaSpinning = false;
+
+function ordineSerpentina(n, giri){
+  const ordine = [];
+  for(let g=0; g<giri; g++){
+    const round = [...Array(n).keys()];
+    if(g%2===1) round.reverse();
+    ordine.push(...round);
+  }
+  return ordine;
+}
+
+function sfidaRenderList(){
+  const box = document.getElementById('sfidaList');
+  box.innerHTML = '';
+  sfidaNomi.forEach((n,i)=>{
+    const d = document.createElement('div');
+    d.className = 'sfida-chip';
+    d.innerHTML = `<span>${n}</span><button class="sfida-rm" data-i="${i}">×</button>`;
+    box.appendChild(d);
+  });
+  box.querySelectorAll('.sfida-rm').forEach(b=>{
+    b.onclick = ()=>{ sfidaNomi.splice(+b.dataset.i,1); sfidaRenderList(); };
+  });
+  document.getElementById('sfidaStartBtn').disabled = sfidaNomi.length < 2;
+  document.getElementById('sfidaHint').textContent = sfidaNomi.length<2
+    ? 'Servono almeno 2 giocatori.'
+    : `${sfidaNomi.length} giocatori pronti · ${sfidaNomi.length*SLOTS.length} scelte in totale`;
+}
+
+function avviaSfidaDraft(nomi){
+  buildSlots();   // formazione corrente, condivisa da tutti i partecipanti
+  const partecipanti = nomi.map(n=>({
+    nome:n,
+    squad: SLOTS.map(s=>({role:s.role, lab:s.lab, player:null})),
+  }));
+  sfida = {
+    partecipanti,
+    usedGlobale: new Set(),
+    ordine: ordineSerpentina(nomi.length, SLOTS.length),
+    turno: 0,
+    currentPool: null,
+  };
+  document.getElementById('sfidaSetup').classList.add('hidden');
+  document.getElementById('sfidaDraft').classList.remove('hidden');
+  renderSfidaDraft();
+}
+
+function sfidaNeededRoles(p){
+  return new Set(p.squad.filter(s=>!s.player).map(s=>s.role));
+}
+
+function sfidaOpenPool(team, participant){
+  const needed = sfidaNeededRoles(participant);
+  let pool = DATA.giocatori.filter(p=>
+    p.t===team && !sfida.usedGlobale.has(p.n) && needed.has(p.p) && !p.off
+  );
+  if(pool.length===0){
+    pool = DATA.giocatori.filter(p=>p.t===team && !sfida.usedGlobale.has(p.n) && !p.off);
+  }
+  pool.sort((a,b)=>b.r-a.r);
+  pool = pool.slice(0,7);
+  sfida.currentPool = pool;
+  return pool;
+}
+
+function sfidaSpin(){
+  if(sfidaSpinning || !sfida || sfida.turno >= sfida.ordine.length) return;
+  const p = sfida.partecipanti[sfida.ordine[sfida.turno]];
+  if(p.squad.filter(s=>!s.player).length===0) return;
+  sfidaSpinning = true;
+  document.getElementById('sfidaSpinBtn').disabled = true;
+  document.getElementById('sfidaPickList').classList.add('hidden');
+
+  const target = TEAMS[Math.floor(Math.random()*TEAMS.length)];
+  const tEl = document.getElementById('sfidaReelTeam');
+  const mEl = document.getElementById('sfidaReelMeta');
+  let n = 0;
+  const total = 16 + Math.floor(Math.random()*8);
+  const tick = ()=>{
+    n++;
+    if(n < total){
+      tEl.textContent = TEAMS[Math.floor(Math.random()*TEAMS.length)];
+      mEl.textContent = '···';
+      setTimeout(tick, 40 + n*7);
+    } else {
+      tEl.textContent = target;
+      const s = DATA.squadre[target];
+      mEl.textContent = `${s.pt} pt · ${s.f}-${s.s} · ${s.v}V ${s.n}N ${s.p}P`;
+      sfidaSpinning = false;
+      sfidaShowPool(target, p);
+    }
+  };
+  tick();
+}
+
+function sfidaShowPool(team, participant){
+  const pool = sfidaOpenPool(team, participant);
+  const list = document.getElementById('sfidaPickList');
+  list.innerHTML = '';
+  if(pool.length===0){
+    list.innerHTML = '<div class="tiny" style="margin:8px 0">Nessun giocatore disponibile · rilancia</div>';
+    document.getElementById('sfidaSpinBtn').disabled = false;
+    list.classList.remove('hidden');
+    return;
+  }
+  pool.forEach(pl=>{
+    const b = document.createElement('button');
+    b.className = 'pick';
+    const canPlace = participant.squad.some(s=>!s.player && s.role===pl.p);
+    b.disabled = !canPlace;
+    b.innerHTML = `
+      <span class="ovr">${pl.r}</span>
+      <span class="pick-name"><b>${pl.n}</b><span>${pl.t}${pl.g?' · '+pl.g+' gol':''}</span></span>
+      <span class="pos">${pl.p}</span>`;
+    b.onclick = ()=>sfidaPlace(pl, participant);
+    list.appendChild(b);
+  });
+  list.classList.remove('hidden');
+}
+
+function sfidaPlace(pl, participant){
+  const slot = participant.squad.find(s=>!s.player && s.role===pl.p);
+  if(!slot) return;
+  slot.player = pl;
+  sfida.usedGlobale.add(pl.n);
+  document.getElementById('sfidaPickList').classList.add('hidden');
+  document.getElementById('sfidaSpinBtn').disabled = false;
+  sfida.turno++;
+  if(sfida.turno >= sfida.ordine.length){
+    avviaSimulazioneSfida();
+  } else {
+    renderSfidaDraft();
+  }
+}
+
+function renderSfidaDraft(){
+  const p = sfida.partecipanti[sfida.ordine[sfida.turno]];
+  document.getElementById('sfidaTurnoCount').textContent = `${sfida.turno+1} / ${sfida.ordine.length}`;
+  document.getElementById('sfidaTurnoNome').textContent = p.nome;
+  document.getElementById('sfidaReelTeam').textContent = '—';
+  document.getElementById('sfidaReelMeta').textContent = 'premi estrai';
+  document.getElementById('sfidaSpinBtn').disabled = false;
+
+  const field = document.getElementById('sfidaField');
+  field.innerHTML = '';
+  [...FORMATION].reverse().forEach(f=>{
+    const row = document.createElement('div');
+    row.className = 'row';
+    const start = SLOTS.findIndex(s=>s.role===f.k);
+    for(let i=0;i<f.n;i++){
+      const s = p.squad[start+i];
+      const d = document.createElement('div');
+      d.className = 'slot' + (s.player?' filled':'');
+      d.innerHTML = s.player
+        ? `<div class="so">${s.player.r}</div><div class="sn">${s.player.n}</div>`
+        : `<div class="sp">${f.k}</div><div class="sn" style="opacity:.4">${f.lab}</div>`;
+      row.appendChild(d);
+    }
+    field.appendChild(row);
+  });
+}
+
+async function avviaSimulazioneSfida(){
+  document.getElementById('sfidaDraft').classList.add('hidden');
+  const risultati = [];
+  for(const p of sfida.partecipanti){
+    const totali = giocaStagioneRapida(p.squad);
+    risultati.push({nome:p.nome, squad:p.squad, ...totali});
+  }
+  sfida = null;   // il draft e' concluso: nessuna ulteriore pescata deve essere possibile
+  mostraRisultatoSfida(risultati);
+}
+
+function mostraRisultatoSfida(risultati){
+  const ordinati = risultati.slice().sort((a,b)=>punteggio(b)-punteggio(a));
+
+  const board = document.getElementById('sfidaBoard');
+  board.innerHTML = '';
+  ordinati.forEach((r,i)=>{
+    const d = document.createElement('div');
+    d.className = 'sf-row' + (i===0?' sf-winner':'');
+    d.innerHTML = `<span class="sf-p">${i+1}</span>
+      <span class="sf-n">${r.nome}${i===0?' <span class="sf-crown">★</span>':''}</span>
+      <span class="sf-rec">${r.V}-${r.N}-${r.P}</span>
+      <span class="sf-pt">${r.pt}pt</span>`;
+    board.appendChild(d);
+  });
+
+  const tab = document.getElementById('sfidaTabellini');
+  tab.innerHTML = '';
+  ordinati.forEach(r=>{
+    const rosa = r.squad.map(s=>`${s.player.r} ${s.player.n.split(' ')[0]}`).join(', ');
+    const d = document.createElement('div');
+    d.className = 'sf-tabellino';
+    d.innerHTML = `<b>${r.nome}</b><br>
+      <span class="tiny">${r.V}V ${r.N}N ${r.P}P · ${r.GF}-${r.GS} · ${r.pos}° nel girone</span><br>
+      <span class="tiny">${rosa}</span>`;
+    tab.appendChild(d);
+  });
+
+  document.getElementById('sfidaResult').classList.remove('hidden');
+}
+
+reset();
+document.getElementById('draft').classList.add('hidden');
+document.getElementById('menu').classList.remove('hidden');
+caricaAlbo();
+caricaClassificaOnline();
+
+/* ---------- easter egg: click sul doppio zero ---------- */
+const EGG_MSG = [
+  '26 volte zero. Ci hai provato.',
+  'lo zero non si clicca, si conquista in campo',
+  "va bene, l'hai trovato",
+  'zero click sprecati, in effetti sì',
+];
+(function(){
+  let clicks = 0, timer = null;
+  const el = document.getElementById('zeroZero');
+  const toast = document.getElementById('eggToast');
+  el.addEventListener('click', ()=>{
+    clicks++;
+    clearTimeout(timer);
+    timer = setTimeout(()=>{ clicks = 0; }, 2500);
+    if(clicks >= 5){
+      clicks = 0;
+      el.classList.add('egg-spin');
+      setTimeout(()=>el.classList.remove('egg-spin'), 900);
+      toast.textContent = EGG_MSG[Math.floor(Math.random()*EGG_MSG.length)];
+      toast.classList.remove('hidden');
+      setTimeout(()=>toast.classList.add('hidden'), 3200);
+    }
+  });
+})();
+
+/* credito nascosto rimosso su richiesta */
+</script>
+</body>
+</html>
